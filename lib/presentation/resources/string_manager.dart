@@ -22,6 +22,8 @@ abstract class StringManager {
   static const String size = "SIZE";
   static const String next = "NEXT";
   static const String total = "TOTAL";
+  static const String skip = "SKIP";
+
   static const String dashboard = "Dashboard";
   static const String payment = "Payment";
   static const String new2 = "2 New";
@@ -35,4 +37,32 @@ abstract class StringManager {
   static const String changeLanguage = "Change language";
   static const String darkMode = "Dark Mode";
   static const String search = "Search";
+
+  static const String success = "Success";
+
+  static const String noContent = "No Content";
+  static const String badRequest = "Bad Request";
+  static const String forbidden = "Forbidden";
+  static const String unauthorized = "Unauthorized";
+  static const String notFound = "Not Found";
+  static const String internalServerError = "Internal Server Error";
+  static const String connectTimeout = "Connect Timeout";
+  static const String cancelled = "Cancelled";
+  static const String receiveTimeout = "Receive Timeout";
+  static const String sendTimeout = "Send Timeout";
+  static const String cacheError = "Cache Error";
+  static const String noInternetConnection = "No Internet Connection";
+  static const String unknown = "Unknown";
+
+  static const String onboardingTitle1 = "Online shopping";
+  static const String onboardingTitle2 = "Add to cart";
+
+  static const String onboardingTitle3 = "Payment Successful";
+
+  static const String onboardingSubTitle1 =
+      "Women Fashion Shopping Online - Shop from a huge range of latest women clothing, shoes, makeup Kits, Watches, footwear and more for women at best price";
+  static const String onboardingSubTitle2 =
+      "Add to cart button works on product pages. The customizations in this section compatible with dynamic checkout buttons";
+  static const String onboardingSubTitle3 =
+      "Your payment has been successfully completed. You will receive a confirmation email within a few minutes.";
 }

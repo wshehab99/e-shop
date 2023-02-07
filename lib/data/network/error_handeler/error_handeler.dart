@@ -50,7 +50,7 @@ enum DataSource {
   unknown
 }
 
-class ResponseCode {
+abstract class ResponseCode {
   static const int success = 200; // success with data
   static const int noContent = 201; // success with no data (no content)
   static const int badRequest = 400; // failure, API rejected request
