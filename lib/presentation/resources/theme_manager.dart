@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sneakers_shop/presentation/resources/style_manager.dart';
 
 import 'color_manger.dart';
+import 'input_border_manager.dart';
 import 'size_manager.dart';
 
 abstract class ThemeManager {
@@ -39,7 +40,8 @@ abstract class ThemeManager {
       elevation: SizeManager.s0,
       shadowColor: ColorManager.offWhite,
       centerTitle: false,
-      iconTheme: const IconThemeData(color: ColorManager.black, size: 25),
+      iconTheme:
+          const IconThemeData(color: ColorManager.black, size: SizeManager.s25),
       titleTextStyle: StyleManager.getBoldStyle(
         fontSize: SizeManager.s22,
         color: ColorManager.black,
@@ -138,6 +140,35 @@ abstract class ThemeManager {
                   ))),
           textStyle: MaterialStateProperty.all<TextStyle>(
               const TextStyle(fontSize: SizeManager.s10))),
+    ),
+    // input decoration theme (text form field)
+    inputDecorationTheme: InputDecorationTheme(
+      // content padding
+      contentPadding: const EdgeInsets.all(SizeManager.s8),
+      // hint style
+      hintStyle: StyleManager.getRegularStyle(
+          color: ColorManager.grey, fontSize: SizeManager.s14),
+      labelStyle: StyleManager.getMediumStyle(
+          color: ColorManager.grey, fontSize: SizeManager.s14),
+      errorStyle: StyleManager.getRegularStyle(color: ColorManager.error),
+
+      // enabled border style
+      enabledBorder: InputBorderManager.getInputBorder(
+        color: ColorManager.lightGrey,
+      ),
+      // focused border style
+      focusedBorder: InputBorderManager.getInputBorder(
+        color: ColorManager.primary,
+      ),
+
+      // error border style
+      errorBorder: InputBorderManager.getInputBorder(
+        color: ColorManager.error,
+      ),
+      // focused border style
+      focusedErrorBorder: InputBorderManager.getInputBorder(
+        color: ColorManager.primary,
+      ),
     ),
   );
 }
