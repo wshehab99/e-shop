@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sneakers_shop/presentation/search/search_view_model.dart';
+import 'package:sneakers_shop/presentation/search/search_view.dart';
 import 'package:sneakers_shop/presentation/sneaker_details/view/sneaker_details_view.dart';
 import 'package:sneakers_shop/presentation/splash/splash_view.dart';
 
 import '../main/view/main_page.dart';
+import '../notifications/notifications.dart';
 import 'string_manager.dart';
 
 abstract class RouteManager {
@@ -26,7 +27,7 @@ class RouteGenerator {
       case RouteManager.search:
         return MaterialPageRoute(builder: (_) => SearchView());
       case RouteManager.notifications:
-        return MaterialPageRoute(builder: (_) => SearchView());
+        return MaterialPageRoute(builder: (_) => NotificationsView());
       default:
         return _default();
     }

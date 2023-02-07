@@ -34,4 +34,5 @@ abstract class StringManager {
   static const String settings = "Settings";
   static const String changeLanguage = "Change language";
   static const String darkMode = "Dark Mode";
+  static const String search = "Search";
 }
