@@ -13,7 +13,7 @@ class DioFactory {
       AppConstants.contentType: AppConstants.applicationJson,
       AppConstants.accept: AppConstants.applicationJson,
       AppConstants.authorization: "", //to-do
-      ,
+      
       AppConstants.languageKey: _appPreferences.getAppLanguage(),
     };
     dio.options = BaseOptions(
