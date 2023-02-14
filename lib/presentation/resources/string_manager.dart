@@ -23,6 +23,14 @@ abstract class StringManager {
   static const String next = "NEXT";
   static const String total = "TOTAL";
   static const String skip = "SKIP";
+  static const String register = "Register";
+
+  static const String retryAgain = "Retry again";
+  static const String cancel = "Cancel";
+  static const String notMember = "not a member?";
+  static const String alreadyMember = "already a member?";
+
+  static const String forgetPassword = "Forget Password?";
 
   static const String dashboard = "Dashboard";
   static const String payment = "Payment";
@@ -33,6 +41,8 @@ abstract class StringManager {
   static const String myAccount = "My Account";
   static const String switchToOtherAccount = "Switch to Other Account";
   static const String logOut = "Log Out";
+  static const String login = "Login";
+
   static const String settings = "Settings";
   static const String changeLanguage = "Change language";
   static const String darkMode = "Dark Mode";
@@ -53,6 +63,12 @@ abstract class StringManager {
   static const String cacheError = "Cache Error";
   static const String noInternetConnection = "No Internet Connection";
   static const String unknown = "Unknown";
+
+  static const String username = "username";
+  static const String password = "password";
+  static const String usernameError = "username must be at least 6 characters";
+
+  static const String passwordError = "password must be at least 8 characters";
 
   static const String onboardingTitle1 = "Online shopping";
   static const String onboardingTitle2 = "Add to cart";

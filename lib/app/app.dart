@@ -12,6 +12,7 @@ class SneakerApp extends StatelessWidget {
       theme: ThemeManager.appTheme,
       initialRoute: RouteManager.splashRoute,
       onGenerateRoute: RouteGenerator.getRoute,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

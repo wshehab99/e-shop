@@ -20,7 +20,7 @@ abstract class AssetImageManager {
 }
 
 abstract class AssetJsonManager {
-  static const String _jsonPath = "assets/images";
+  static const String _jsonPath = "assets/json";
   static const String empty = "$_jsonPath/empty.json";
   static const String error = "$_jsonPath/error.json";
   static const String loading = "$_jsonPath/loading.json";

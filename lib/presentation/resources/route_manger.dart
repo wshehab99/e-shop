@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:sneakers_shop/app/dependency_injection.dart';
-import 'package:sneakers_shop/presentation/forget_password/forget_password.dart';
-import 'package:sneakers_shop/presentation/login/view/login_view.dart';
-import 'package:sneakers_shop/presentation/onboarding/view/onboarding_view.dart';
-import 'package:sneakers_shop/presentation/register/register_view.dart';
-import 'package:sneakers_shop/presentation/search/search_view.dart';
-import 'package:sneakers_shop/presentation/sneaker_details/view/sneaker_details_view.dart';
-import 'package:sneakers_shop/presentation/splash/splash_view.dart';
-
+import '../../app/dependency_injection.dart';
+import '../forget_password/forget_password.dart';
+import '../login/view/login_view.dart';
 import '../main/view/main_page.dart';
 import '../notifications/notifications.dart';
+import '../onboarding/view/onboarding_view.dart';
+import '../register/view/register_view.dart';
+import '../search/search_view.dart';
+import '../sneaker_details/view/sneaker_details_view.dart';
+import '../splash/splash_view.dart';
 import 'string_manager.dart';
 
 abstract class RouteManager {
@@ -28,24 +27,26 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteManager.splashRoute:
-        return MaterialPageRoute(builder: (_) => SplashView());
+        return MaterialPageRoute(builder: (_) => const SplashView());
       case RouteManager.mainRoute:
-        return MaterialPageRoute(builder: (_) => MainPage());
+        return MaterialPageRoute(builder: (_) => const MainPage());
       case RouteManager.sneakerDetailsRoute:
         return MaterialPageRoute(builder: (_) => SneakerDetailsView());
       case RouteManager.search:
-        return MaterialPageRoute(builder: (_) => SearchView());
+        return MaterialPageRoute(builder: (_) => const SearchView());
       case RouteManager.notifications:
-        return MaterialPageRoute(builder: (_) => NotificationsView());
+        return MaterialPageRoute(builder: (_) => const NotificationsView());
       case RouteManager.login:
-        return MaterialPageRoute(builder: (_) => LoginView());
+        DependencyInjection.initLogin();
+        return MaterialPageRoute(builder: (_) => const LoginView());
       case RouteManager.register:
-        return MaterialPageRoute(builder: (_) => RegisterView());
+        DependencyInjection.initRegister();
+        return MaterialPageRoute(builder: (_) => const RegisterView());
       case RouteManager.forgetPassword:
-        return MaterialPageRoute(builder: (_) => ForgetPasswordView());
+        return MaterialPageRoute(builder: (_) => const ForgetPasswordView());
       case RouteManager.onboarding:
         DependencyInjection.initOnboarding();
-        return MaterialPageRoute(builder: (_) => OnboardingView());
+        return MaterialPageRoute(builder: (_) => const OnboardingView());
       default:
         return _default();
     }

@@ -3,12 +3,6 @@ import 'package:sneakers_shop/presentation/common/base_view_model/base_view_mode
 class ProfilePageViewModel extends BaseViewModel
     with ProfileViewModelInput, ProfileViewModelOutput {
   @override
-  dispose() {}
-
-  @override
-  init() {}
-
-  @override
   logout() {
     // TODO: implement logout
   }

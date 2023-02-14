@@ -22,12 +22,14 @@ class OnboardingViewModel extends BaseViewModel
   @override
   dispose() {
     _currentIndexStreamController.close();
+    super.dispose();
   }
 
   @override
   init() {
     _pages = _getPages();
     _postDataToView();
+    super.init();
   }
 
   @override

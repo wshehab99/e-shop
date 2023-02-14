@@ -1,27 +1,26 @@
 import 'dart:async';
 
-import 'package:sneakers_shop/app/app_functions.dart';
 import 'package:sneakers_shop/presentation/common/freezed_data/login_object.dart';
-import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 
+import '../../../app/app_functions.dart';
 import '../../common/base_view_model/base_view_model.dart';
 
-class LoginViewModel extends BaseViewModel
-    with LoginViewModelInput, LoginViewModelOutput {
-  final StreamController _usernameStreamController =
-      StreamController<String>.broadcast();
-  final StreamController _passwordStreamController =
-      StreamController<String>.broadcast();
-  final StreamController _allInputValidStreamController =
-      StreamController<void>.broadcast();
+class RegisterViewModel extends BaseViewModel
+    with RegisterViewModelInput, RegisterViewModelOutput {
+  final StreamController _passwordStreamController = StreamController<String>();
+  final StreamController _usernameStreamController = StreamController<String>();
+  final StreamController _allValidStreamController = StreamController<void>();
   final LoginObject _loginObject = LoginObject("", "");
+//inputs
+  @override
+  Sink get inputAllFieldsValid => _allValidStreamController.sink;
+
   @override
   Sink get inputPasswordValid => _passwordStreamController.sink;
 
   @override
   Sink get inputUsernameValid => _usernameStreamController.sink;
-  @override
-  Sink get inputAllFieldsValid => _allInputValidStreamController.sink;
+//outputs
   @override
   Stream<bool> get outputPasswordValid => _passwordStreamController.stream
       .map((password) => isPasswordValid(password));
@@ -30,21 +29,18 @@ class LoginViewModel extends BaseViewModel
   Stream<bool> get outputUsernameValid => _usernameStreamController.stream
       .map((username) => isUsernameValid(username));
   @override
+  Stream<bool> get outputAllFieldsValid =>
+      _allValidStreamController.stream.map((_) => _allInputValid());
+  @override
   dispose() {
-    _usernameStreamController.close();
-    _allInputValidStreamController.close();
     _passwordStreamController.close();
+    _usernameStreamController.close();
+    _allValidStreamController.close();
     super.dispose();
   }
 
   @override
-  Stream<bool> get outputAllFieldsValid =>
-      _allInputValidStreamController.stream.map((event) => _checkValidity());
-
-  bool _checkValidity() {
-    return isUsernameValid(_loginObject.username) &&
-        isPasswordValid(_loginObject.password);
-  }
+  Future register() async {}
 
   @override
   void setPassword(String password) {
@@ -60,24 +56,23 @@ class LoginViewModel extends BaseViewModel
     inputAllFieldsValid.add(null);
   }
 
-  @override
-  Future login() async {
-    inputState.add(LoadingState(
-        type: StateRendererType.loadingPopupState, message: "loading"));
+  bool _allInputValid() {
+    return isUsernameValid(_loginObject.username) &&
+        isPasswordValid(_loginObject.password);
   }
 }
 
-abstract class LoginViewModelInput {
+abstract class RegisterViewModelInput {
   Sink get inputUsernameValid;
   Sink get inputPasswordValid;
   Sink get inputAllFieldsValid;
 
   void setUsername(String username);
   void setPassword(String password);
-  Future login();
+  Future register();
 }
 
-abstract class LoginViewModelOutput {
+abstract class RegisterViewModelOutput {
   Stream<bool> get outputUsernameValid;
   Stream<bool> get outputPasswordValid;
   Stream<bool> get outputAllFieldsValid;
