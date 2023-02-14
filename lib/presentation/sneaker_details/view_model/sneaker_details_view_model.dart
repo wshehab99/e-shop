@@ -43,12 +43,14 @@ class SneakersDetailsViewModel extends BaseViewModel
     _currencyStreamController.close();
     _sizeStreamController.close();
     _validityStreamController.close();
+    super.dispose();
   }
 
   @override
   init() {
     inputCurrency.add(_currencies);
     inputSize.add(_sizes);
+    super.init();
   }
 
   @override

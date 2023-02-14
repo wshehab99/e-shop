@@ -42,12 +42,14 @@ class CartPageViewModel extends BaseViewModel
   dispose() {
     _bagItemStreamController.close();
     _totalPriceStreamController.close();
+    super.dispose();
   }
 
   @override
   init() {
     inputBagItem.add(_list);
     inputTotalPrice.add(_getTotalPrice());
+    super.init();
   }
 
   @override

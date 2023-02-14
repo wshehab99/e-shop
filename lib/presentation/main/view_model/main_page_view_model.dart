@@ -18,10 +18,8 @@ class MainViewModel extends BaseViewModel
   @override
   dispose() {
     _currentIndexStreamController.close();
+    super.dispose();
   }
-
-  @override
-  init() {}
 
   @override
   setCurrentIndex(index) {

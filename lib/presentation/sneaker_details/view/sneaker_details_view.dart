@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sneakers_shop/presentation/resources/asset_manager.dart';
-import 'package:sneakers_shop/presentation/resources/color_manger.dart';
-import 'package:sneakers_shop/presentation/resources/size_manager.dart';
-import 'package:sneakers_shop/presentation/resources/string_manager.dart';
-import 'package:sneakers_shop/presentation/sneaker_details/view_model/sneaker_details_view_model.dart';
-
 import '../../common/widgets/app_divider.dart';
+import '../../resources/asset_manager.dart';
+import '../../resources/color_manger.dart';
+import '../../resources/size_manager.dart';
+import '../../resources/string_manager.dart';
+import '../view_model/sneaker_details_view_model.dart';
 
 class SneakerDetailsView extends StatefulWidget {
-  SneakerDetailsView({super.key});
+  const SneakerDetailsView({super.key});
 
   @override
   State<SneakerDetailsView> createState() => _SneakerDetailsViewState();
@@ -49,8 +48,8 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
                         )),
                   ),
                   Positioned(
-                    left: 0,
-                    top: 100,
+                    left: SizeManager.s0,
+                    top: SizeManager.s100,
                     child: Transform(
                       transform: Matrix4.rotationZ(-0.35),
                       child: Image.asset(
@@ -60,8 +59,8 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
                     ),
                   ),
                   Positioned(
-                    left: 8,
-                    top: 8,
+                    left: SizeManager.s8,
+                    top: SizeManager.s8,
                     child: IconButton(
                       onPressed: () {
                         Navigator.pop(context);
@@ -154,7 +153,7 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
             ),
             _setSizes(),
             const SizedBox(
-              height: 50,
+              height: SizeManager.s50,
             ),
           ],
         ),
