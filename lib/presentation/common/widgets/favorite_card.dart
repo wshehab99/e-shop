@@ -11,7 +11,7 @@ class FavoriteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: SizeManager.s120,
+      height: SizeManager.s150,
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(SizeManager.s8),

@@ -1,13 +1,16 @@
 import 'package:dio/dio.dart';
-import 'package:sneakers_shop/app/app_extensions.dart';
-import 'package:sneakers_shop/data/network/failure/failure.dart';
-import 'package:sneakers_shop/presentation/resources/string_manager.dart';
+
+import '../../../presentation/resources/string_manager.dart';
+import '../failure/failure.dart';
+import '../../../app/app_extensions.dart';
 
 class ErrorHandler implements Exception {
   late Failure failure;
   ErrorHandler.handle(error) {
     if (error is DioError) {
       failure = _handleError(error);
+    } else {
+      failure = DataSource.unknown.getFailure();
     }
   }
   Failure _handleError(DioError error) {

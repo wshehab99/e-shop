@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:sneakers_shop/presentation/main/pages/cart_page/view/cart_page_view.dart';
-import 'package:sneakers_shop/presentation/main/pages/favorite/favorite_page_view.dart';
-import 'package:sneakers_shop/presentation/main/pages/home/view/home_page.dart';
-import 'package:sneakers_shop/presentation/main/pages/profile_page/view/profile_page_view.dart';
-import 'package:sneakers_shop/presentation/resources/route_manger.dart';
-import 'package:sneakers_shop/presentation/resources/size_manager.dart';
-import 'package:sneakers_shop/presentation/resources/string_manager.dart';
-
+import '../../resources/route_manger.dart';
+import '../../resources/size_manager.dart';
+import '../../resources/string_manager.dart';
+import '../pages/cart_page/view/cart_page_view.dart';
+import '../pages/favorite/favorite_page_view.dart';
+import '../pages/home/view/home_page.dart';
+import '../pages/profile_page/view/profile_page_view.dart';
 import '../view_model/main_page_view_model.dart';
+import '../../../app/app_extensions.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -18,10 +18,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final List<Widget> _pages = [
-    HomePageView(),
-    CartPageView(),
-    FavoritePageView(),
-    ProfilePageView(),
+    const HomePageView(),
+    const CartPageView(),
+    const FavoritePageView(),
+    const ProfilePageView(),
   ];
   final List<String> _titles = [
     StringManager.discover,
@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
         builder: (context, snapshot) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(_titles[snapshot.data ?? 0]),
+              title: Text(_titles[snapshot.data.orZero()]),
               actions: [
                 IconButton(
                     onPressed: () {
@@ -66,10 +66,10 @@ class _MainPageState extends State<MainPage> {
             ),
             body: Padding(
               padding: const EdgeInsets.all(SizeManager.s10),
-              child: _pages[snapshot.data ?? 0],
+              child: _pages[snapshot.data.orZero()],
             ),
             bottomNavigationBar: BottomNavigationBar(
-              currentIndex: _mainViewModel.currentIndex,
+              currentIndex: snapshot.data.orZero(),
               items: const [
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home), label: StringManager.discover),

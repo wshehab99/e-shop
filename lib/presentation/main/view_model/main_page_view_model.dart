@@ -6,7 +6,6 @@ class MainViewModel extends BaseViewModel
     with MainViewModelInput, MainViewModelOutput {
   final StreamController<int> _currentIndexStreamController =
       StreamController<int>();
-  int currentIndex = 0;
   // inputs
   @override
   Sink get inputCurrentIndex => _currentIndexStreamController.sink;
@@ -22,9 +21,14 @@ class MainViewModel extends BaseViewModel
   }
 
   @override
+  init() {
+    inputCurrentIndex.add(0);
+    super.init();
+  }
+
+  @override
   setCurrentIndex(index) {
     inputCurrentIndex.add(index);
-    currentIndex = index;
   }
 }
 

@@ -38,8 +38,9 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
               child: Stack(
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(
-                        right: SizeManager.s14, top: SizeManager.s14),
+                    padding: EdgeInsets.only(
+                        right: SizeManager.s14,
+                        top: MediaQuery.of(context).padding.top),
                     height: MediaQuery.of(context).size.height / 2.25,
                     decoration: const BoxDecoration(
                         color: ColorManager.primary,

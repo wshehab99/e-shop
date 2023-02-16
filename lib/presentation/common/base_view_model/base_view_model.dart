@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:sneakers_shop/app/app_constant.dart';
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 
 abstract class BaseViewModel extends BaseViewModelInput
@@ -18,8 +16,7 @@ abstract class BaseViewModel extends BaseViewModelInput
 
   @override
   init() {
-    inputState.add(ContentState(
-        type: StateRendererType.contentState, message: AppConstants.empty));
+    inputState.add(ContentState());
   }
 }
 

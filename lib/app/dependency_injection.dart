@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sneakers_shop/domain/use_cases/home_use_case.dart';
+import 'package:sneakers_shop/presentation/main/pages/home/view_model/home_view_model.dart';
 import '../data/data_source/local_data_source/local_data_source.dart';
 import '../data/data_source/local_data_source/local_data_source_implementer.dart';
 import '../data/data_source/remote_data_source/remote_data_source.dart';
@@ -11,6 +13,8 @@ import '../data/network/dio_factory/dio_factory.dart';
 import '../data/network/network_info/network_info.dart';
 import '../data/network/repository/repository.dart';
 import '../data/network/repository/repository_implementer.dart';
+import '../domain/use_cases/login_use_case.dart';
+import '../domain/use_cases/register_use_case.dart';
 import '../presentation/login/view_model/login_view_model.dart';
 import '../presentation/onboarding/view_model/onboarding_view_model.dart';
 import '../presentation/register/view_model.dart/register_view_model.dart';
@@ -60,14 +64,31 @@ class DependencyInjection {
   }
 
   static void initLogin() {
-    if (!instance.isRegistered<LoginViewModel>()) {
-      instance.registerFactory<LoginViewModel>(() => LoginViewModel());
+    if (!instance.isRegistered<LoginUseCase>()) {
+      instance.registerFactory<LoginUseCase>(
+          () => LoginUseCase(instance<Repository>()));
+      instance.registerFactory<LoginViewModel>(
+          () => LoginViewModel(instance<LoginUseCase>()));
     }
   }
 
   static void initRegister() {
-    if (!instance.isRegistered<RegisterViewModel>()) {
-      instance.registerFactory<RegisterViewModel>(() => RegisterViewModel());
+    if (!instance.isRegistered<RegisterUseCase>()) {
+      instance.registerFactory<RegisterUseCase>(
+          () => RegisterUseCase(instance<Repository>()));
+
+      instance.registerFactory<RegisterViewModel>(
+          () => RegisterViewModel(instance<RegisterUseCase>()));
+    }
+  }
+
+  static void initHome() {
+    if (!instance.isRegistered<HomeUseCase>()) {
+      instance.registerFactory<HomeUseCase>(
+          () => HomeUseCase(instance<Repository>()));
+
+      instance.registerFactory<HomeViewMode1>(
+          () => HomeViewMode1(instance<HomeUseCase>()));
     }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sneakers_shop/app/dependency_injection.dart';
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sneakers_shop/presentation/login/view_model/login_view_model.dart';
@@ -23,19 +24,27 @@ class _LoginViewState extends State<LoginView> {
   final LoginViewModel _viewModel =
       DependencyInjection.instance<LoginViewModel>();
   void _bind() {
+    _viewModel.init();
     _usernameController.addListener(() {
       _viewModel.setUsername(_usernameController.text);
     });
     _passwordController.addListener(() {
       _viewModel.setPassword(_passwordController.text);
     });
+    _viewModel.isUserLogin.stream.listen((loggedIn) {
+      if (loggedIn) {
+        print(loggedIn);
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacementNamed(RouteManager.mainRoute);
+        });
+      }
+    });
   }
 
   @override
   void initState() {
-    _bind();
-
     super.initState();
+    _bind();
   }
 
   @override
