@@ -1,5 +1,5 @@
 extension IntExtension on int? {
- int orZero() {
+  int orZero() {
     if (this != null) {
       return this!;
     } else {
@@ -7,12 +7,23 @@ extension IntExtension on int? {
     }
   }
 }
+
 extension StringExtension on String? {
- String orEmpty() {
+  String orEmpty() {
     if (this != null) {
       return this!;
     } else {
       return "";
+    }
+  }
+}
+
+extension DoubleExtension on double? {
+  double orZero() {
+    if (this != null) {
+      return this!;
+    } else {
+      return 0;
     }
   }
 }

@@ -29,9 +29,10 @@ class RouteGenerator {
       case RouteManager.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashView());
       case RouteManager.mainRoute:
+        DependencyInjection.initHome();
         return MaterialPageRoute(builder: (_) => const MainPage());
       case RouteManager.sneakerDetailsRoute:
-        return MaterialPageRoute(builder: (_) => SneakerDetailsView());
+        return MaterialPageRoute(builder: (_) => const SneakerDetailsView());
       case RouteManager.search:
         return MaterialPageRoute(builder: (_) => const SearchView());
       case RouteManager.notifications:

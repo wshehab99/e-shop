@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sneakers_shop/presentation/resources/asset_manager.dart';
-
+import '../../resources/asset_manager.dart';
 import '../../resources/color_manger.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/string_manager.dart';

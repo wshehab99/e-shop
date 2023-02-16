@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneakers_shop/app/app_constant.dart';
 
 import 'state_renderer_implementer.dart';
 
@@ -55,15 +56,11 @@ class EmptyState implements FlowState {
 }
 
 class ContentState implements FlowState {
-  final StateRendererType type;
-  final String message;
-  ContentState({required this.type, required this.message});
+  @override
+  String getMessage() => AppConstants.empty;
 
   @override
-  String getMessage() => message;
-
-  @override
-  StateRendererType getStateType() => type;
+  StateRendererType getStateType() => StateRendererType.contentState;
 }
 
 enum StateRendererType {
@@ -84,6 +81,7 @@ extension FlowStateExtension on FlowState {
       {Function? retryFunction}) {
     switch (runtimeType) {
       case LoadingState:
+        dismissDialog(context);
         if (getStateType() == StateRendererType.loadingPopupState) {
           showPopup(context, getStateType(), getMessage(),
               retryFunction: retryFunction);

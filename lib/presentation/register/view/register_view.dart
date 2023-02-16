@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import '../../../app/dependency_injection.dart';
+import '../../common/state_renderer/state_renderer.dart';
 import '../../resources/asset_manager.dart';
+import '../../resources/route_manger.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/string_manager.dart';
 import '../view_model.dart/register_view_model.dart';
@@ -16,6 +19,8 @@ class _RegisterViewState extends State<RegisterView> {
   final RegisterViewModel _viewModel =
       DependencyInjection.instance<RegisterViewModel>();
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
   void _bind() {
     _usernameController.addListener(() {
@@ -23,6 +28,16 @@ class _RegisterViewState extends State<RegisterView> {
     });
     _passwordController.addListener(() {
       _viewModel.setPassword(_passwordController.text);
+    });
+    _nameController.addListener(() {
+      _viewModel.setName(_nameController.text);
+    });
+    _viewModel.isRegistered.stream.listen((isRegistered) {
+      if (isRegistered) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          Navigator.of(context).pushReplacementNamed(RouteManager.mainRoute);
+        });
+      }
     });
   }
 
@@ -42,11 +57,20 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(SizeManager.s10),
-          child: _getForm(),
-        ),
+      body: StreamBuilder<FlowState>(
+          stream: _viewModel.outputState,
+          builder: (context, snapshot) {
+            return snapshot.data?.renderWidget(context, _getContent()) ??
+                _getContent();
+          }),
+    );
+  }
+
+  Widget _getContent() {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(SizeManager.s10),
+        child: _getForm(),
       ),
     );
   }
@@ -58,6 +82,22 @@ class _RegisterViewState extends State<RegisterView> {
           Image.asset(AssetImageManager.splash),
           const SizedBox(
             height: SizeManager.s18,
+          ),
+          StreamBuilder<bool>(
+              stream: _viewModel.outputNameValid,
+              builder: (context, snapshot) {
+                return TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                      hintText: StringManager.name,
+                      labelText: StringManager.name,
+                      errorText: (snapshot.data ?? true)
+                          ? null
+                          : StringManager.nameError),
+                );
+              }),
+          const SizedBox(
+            height: SizeManager.s14,
           ),
           StreamBuilder<bool>(
               stream: _viewModel.outputUsernameValid,

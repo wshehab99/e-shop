@@ -16,7 +16,7 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void _nextPage() {
-    Navigator.of(context).pushReplacementNamed(RouteManager.onboarding);
+    Navigator.of(context).pushReplacementNamed(RouteManager.mainRoute);
   }
 
   @override

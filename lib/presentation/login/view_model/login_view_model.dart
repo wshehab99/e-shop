@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:sneakers_shop/app/app_functions.dart';
+import 'package:sneakers_shop/domain/use_cases/login_use_case.dart';
 import 'package:sneakers_shop/presentation/common/freezed_data/login_object.dart';
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
+import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
 import '../../common/base_view_model/base_view_model.dart';
 
@@ -15,6 +17,9 @@ class LoginViewModel extends BaseViewModel
   final StreamController _allInputValidStreamController =
       StreamController<void>.broadcast();
   final LoginObject _loginObject = LoginObject("", "");
+  final LoginUseCase _loginUseCase;
+  LoginViewModel(this._loginUseCase);
+  final StreamController isUserLogin = StreamController<bool>.broadcast();
   @override
   Sink get inputPasswordValid => _passwordStreamController.sink;
 
@@ -34,6 +39,7 @@ class LoginViewModel extends BaseViewModel
     _usernameStreamController.close();
     _allInputValidStreamController.close();
     _passwordStreamController.close();
+    isUserLogin.close();
     super.dispose();
   }
 
@@ -63,7 +69,16 @@ class LoginViewModel extends BaseViewModel
   @override
   Future login() async {
     inputState.add(LoadingState(
-        type: StateRendererType.loadingPopupState, message: "loading"));
+        type: StateRendererType.loadingPopupState,
+        message: StringManager.loading));
+    (await _loginUseCase.execute(_loginObject)).fold((failure) {
+      inputState.add(ErrorState(
+          type: StateRendererType.errorPopupState, message: failure.message));
+      isUserLogin.add(false);
+    }, (authentication) {
+      inputState.add(ContentState());
+      isUserLogin.add(true);
+    });
   }
 }
 
