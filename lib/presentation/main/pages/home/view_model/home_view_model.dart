@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
+
 import '../../../../../domain/model/home_model.dart';
 import '../../../../common/base_view_model/base_view_model.dart';
 import '../../../../../domain/use_cases/home_use_case.dart';
@@ -9,15 +11,15 @@ import '../../../../resources/string_manager.dart';
 class HomeViewMode1 extends BaseViewModel
     with HomeViewModelInput, HomeViewModelOutput {
   final StreamController _selectedIndexStreamController =
-      StreamController<int>();
+      BehaviorSubject<int>();
   final StreamController _selectedListStreamController =
-      StreamController<List<ProductResponseModel>>();
+      BehaviorSubject<List<ProductResponseModel>>();
 
   final StreamController _moreListStreamController =
-      StreamController<List<ProductResponseModel>>();
+      BehaviorSubject<List<ProductResponseModel>>();
   final HomeUseCase _useCase;
   HomeViewMode1(this._useCase);
-  late List<List<ProductResponseModel>> _list;
+  final HomeObject _object = HomeObject([], [], []);
 
   @override
   Sink get inputSelectedIndex => _selectedIndexStreamController.sink;
@@ -36,10 +38,10 @@ class HomeViewMode1 extends BaseViewModel
   Stream<int> get outputSelectedIndex =>
       _selectedIndexStreamController.stream.map((index) => index);
   @override
-  init() {
-    super.init();
+  init() async {
     inputSelectedIndex.add(0);
-    getFeed();
+    await getFeed();
+    return super.init();
   }
 
   @override
@@ -47,7 +49,7 @@ class HomeViewMode1 extends BaseViewModel
     _selectedListStreamController.close();
     _selectedIndexStreamController.close();
     _moreListStreamController.close();
-    super.dispose();
+    return super.dispose();
   }
 
   @override
@@ -60,20 +62,29 @@ class HomeViewMode1 extends BaseViewModel
           type: StateRendererType.errorFullScreenState,
           message: failure.message));
     }, (homeModel) {
-      _list.add(homeModel.data.upcoming);
-      _list.add(homeModel.data.featured);
-      _list.add(homeModel.data.news);
-      inputMoreList.add(homeModel.data.more);
       inputState.add(ContentState());
+      _insertData(homeModel.data);
     });
   }
 
   @override
   changeIndex(int index) {
-    inputSelectedIndex.add(index);
-    if (index < _list.length) {
-      inputSelectedList.add(_list[index]);
+    if (index == 0) {
+      inputSelectedList.add(_object.upcoming);
+    } else if (index == 1) {
+      inputSelectedList.add(_object.featured);
+    } else {
+      inputSelectedList.add(_object.news);
     }
+    inputSelectedIndex.add(index);
+  }
+
+  void _insertData(HomeDataResponseModel data) {
+    _object.featured = data.featured;
+    _object.news = data.news;
+    _object.upcoming = data.upcoming;
+    inputMoreList.add(data.more);
+    changeIndex(0);
   }
 }
 
@@ -90,4 +101,11 @@ abstract class HomeViewModelOutput {
   Stream<int> get outputSelectedIndex;
   Stream<List<ProductResponseModel>> get outputShownList;
   Stream<List<ProductResponseModel>> get outputMoreList;
+}
+
+class HomeObject {
+  List<ProductResponseModel> upcoming;
+  List<ProductResponseModel> featured;
+  List<ProductResponseModel> news;
+  HomeObject(this.upcoming, this.featured, this.news);
 }

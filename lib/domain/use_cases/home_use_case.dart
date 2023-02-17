@@ -10,7 +10,7 @@ class HomeUseCase extends BaseUseCase<void, HomeModel> {
   HomeUseCase(this._repository);
 
   @override
-  Future<Either<Failure, HomeModel>> execute(void input) {
-    return _repository.getHomeDetails();
+  Future<Either<Failure, HomeModel>> execute(void input) async {
+    return await _repository.getHomeDetails();
   }
 }

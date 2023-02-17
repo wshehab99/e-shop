@@ -33,7 +33,6 @@ class _LoginViewState extends State<LoginView> {
     });
     _viewModel.isUserLogin.stream.listen((loggedIn) {
       if (loggedIn) {
-        print(loggedIn);
         SchedulerBinding.instance.addPostFrameCallback((_) {
           Navigator.of(context).pushReplacementNamed(RouteManager.mainRoute);
         });

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:sneakers_shop/app/dependency_injection.dart';
-import 'package:sneakers_shop/domain/model/home_model.dart';
-import 'package:sneakers_shop/presentation/resources/color_manger.dart';
-import 'package:sneakers_shop/presentation/resources/route_manger.dart';
-import 'package:sneakers_shop/presentation/resources/size_manager.dart';
-import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
+import '../../../../../app/dependency_injection.dart';
+import '../../../../../domain/model/derails_object.dart';
+import '../../../../../domain/model/home_model.dart';
+import '../../../../common/state_renderer/state_renderer.dart';
 import '../../../../common/widgets/featured_product_card.dart';
 import '../../../../common/widgets/rotated_text_bottom.dart';
+import '../../../../resources/color_manger.dart';
 import '../../../../resources/pref_manager.dart';
+import '../../../../resources/route_manger.dart';
+import '../../../../resources/size_manager.dart';
+import '../../../../resources/string_manager.dart';
 import '../view_model/home_view_model.dart';
 
 class HomePageView extends StatefulWidget {
@@ -40,66 +42,89 @@ class _HomePageViewState extends State<HomePageView> {
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.renderWidget(context, _getContent()) ??
+              _getContent();
+        });
+  }
+
+  Widget _getHorizontalList() {
+    return SizedBox(
+      height: SizeManager.s200,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: PrefManager.appScrollPhysics,
+        child: Row(
+          children: [
+            StreamBuilder<int>(
+                stream: _viewModel.outputSelectedIndex,
+                builder: (context, snapshot) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (int i = 0; i < _list.length; i++)
+                        RotatedTextBottom(
+                          onPressed: () {
+                            _viewModel.changeIndex(i);
+                          },
+                          text: _list[i],
+                          isSelected:
+                              snapshot.hasData ? i == snapshot.data : i == 0,
+                        ),
+                    ],
+                  );
+                }),
+            const SizedBox(
+              width: SizeManager.s10,
+            ),
+            _getHorizontalItemsList(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _getHorizontalItemsList() {
+    return StreamBuilder<List<ProductResponseModel>>(
+        stream: _viewModel.outputShownList,
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  physics: PrefManager.neverScrollPhysics,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final Color color = ColorManager.randomColor();
+                    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                            RouteManager.sneakerDetailsRoute,
+                            arguments:
+                                DetailsObject(snapshot.data![index], color));
+                      },
+                      child: FeaturedProductCard(
+                        product: snapshot.data![index],
+                        color: color,
+                      ),
+                    );
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                        width: SizeManager.s20,
+                      ),
+                  itemCount: snapshot.data!.length)
+              : const SizedBox();
+        });
+  }
+
+  Widget _getContent() {
     return SingleChildScrollView(
       physics: PrefManager.appScrollPhysics,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: SizeManager.s200,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: PrefManager.appScrollPhysics,
-              child: Row(
-                children: [
-                  StreamBuilder<int>(
-                      stream: _viewModel.outputSelectedIndex,
-                      builder: (context, snapshot) {
-                        return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            for (int i = 0; i < _list.length; i++)
-                              RotatedTextBottom(
-                                onPressed: () {
-                                  _viewModel.changeIndex(i);
-                                },
-                                text: _list[i],
-                                isSelected: i == snapshot.data,
-                              ),
-                          ],
-                        );
-                      }),
-                  const SizedBox(
-                    width: SizeManager.s10,
-                  ),
-                  StreamBuilder<List<ProductResponseModel>>(
-                      stream: null,
-                      builder: (context, snapshot) {
-                        List shownList = snapshot.data ?? [];
-                        return ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            physics: PrefManager.neverScrollPhysics,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) => InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                        RouteManager.sneakerDetailsRoute);
-                                  },
-                                  child: FeaturedProductCard(
-                                    product: shownList[index],
-                                    color: ColorManager.primary,
-                                  ),
-                                ),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(
-                                  width: SizeManager.s20,
-                                ),
-                            itemCount: shownList.length);
-                      }),
-                ],
-              ),
-            ),
-          ),
+          _getHorizontalList(),
           const SizedBox(
             height: SizeManager.s20,
           ),
@@ -117,11 +142,18 @@ class _HomePageViewState extends State<HomePageView> {
               )
             ],
           ),
-          StreamBuilder<List<ProductResponseModel>>(
-              stream: _viewModel.outputMoreList,
-              builder: (context, snapshot) {
-                List<ProductResponseModel> shownList = snapshot.data ?? [];
-                return GridView.builder(
+          _getGridItems(),
+        ],
+      ),
+    );
+  }
+
+  Widget _getGridItems() {
+    return StreamBuilder<List<ProductResponseModel>>(
+        stream: _viewModel.outputMoreList,
+        builder: (context, snapshot) {
+          return snapshot.hasData
+              ? GridView.builder(
                   shrinkWrap: true,
                   physics: PrefManager.neverScrollPhysics,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -131,6 +163,7 @@ class _HomePageViewState extends State<HomePageView> {
                     child: Padding(
                       padding: const EdgeInsets.all(SizeManager.s10),
                       child: Column(
+                          mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             const Align(
@@ -138,25 +171,24 @@ class _HomePageViewState extends State<HomePageView> {
                               child: Icon(Icons.favorite_border),
                             ),
                             Image.network(
-                              shownList[index].imgUrl,
-                              height: SizeManager.s50,
+                              snapshot.data![index].imgUrl,
+                              fit: BoxFit.cover,
+                              height: SizeManager.s80,
                             ),
                             Text(
-                              "${shownList[index].brand} ${shownList[index].model}",
+                              "${snapshot.data![index].brand} ${snapshot.data![index].model}",
                               style: Theme.of(context).textTheme.displayLarge,
                             ),
                             Text(
-                              shownList[index].price.toString(),
+                              snapshot.data![index].price.toString(),
                               style: Theme.of(context).textTheme.displaySmall,
                             ),
                           ]),
                     ),
                   ),
-                  itemCount: shownList.length,
-                );
-              })
-        ],
-      ),
-    );
+                  itemCount: snapshot.data!.length,
+                )
+              : const SizedBox();
+        });
   }
 }

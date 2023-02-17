@@ -3,7 +3,7 @@ import 'package:sneakers_shop/data/data_source/local_data_source/local_data_sour
 import 'package:sneakers_shop/data/data_source/remote_data_source/remote_data_source.dart';
 import 'package:sneakers_shop/data/mapper/authentication_mapper.dart';
 import 'package:sneakers_shop/data/mapper/home_mapper.dart';
-import 'package:sneakers_shop/data/network/error_handeler/error_handeler.dart';
+import 'package:sneakers_shop/data/network/error_handler/error_handler.dart';
 import 'package:sneakers_shop/data/network/failure/failure.dart';
 import 'package:sneakers_shop/data/network/network_info/network_info.dart';
 import 'package:sneakers_shop/domain/model/home_model.dart';
@@ -52,15 +52,21 @@ class RepositoryImplementer implements Repository {
 
   @override
   Future<Either<Failure, HomeModel>> getHomeDetails() async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final response = await _remoteDataSource.home();
-        return Right(response.toModel());
-      } catch (error) {
-        return Left(ErrorHandler.handle(error).failure);
+    try {
+      final localResponse = await _localDataSource.getHomeResponse();
+      return Right(localResponse.toModel());
+    } catch (_) {
+      if (await _networkInfo.isConnected) {
+        try {
+          final response = await _remoteDataSource.home();
+          await _localDataSource.setHomeResponse(response);
+          return Right(response.toModel());
+        } catch (error) {
+          return Left(ErrorHandler.handle(error).failure);
+        }
+      } else {
+        return Left(DataSource.noInternetConnection.getFailure());
       }
-    } else {
-      return Left(DataSource.noInternetConnection.getFailure());
     }
   }
 }

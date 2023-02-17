@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneakers_shop/domain/model/derails_object.dart';
 import '../../app/dependency_injection.dart';
 import '../forget_password/forget_password.dart';
 import '../login/view/login_view.dart';
@@ -29,10 +30,14 @@ class RouteGenerator {
       case RouteManager.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashView());
       case RouteManager.mainRoute:
-        DependencyInjection.initHome();
+        DependencyInjection.initMain();
         return MaterialPageRoute(builder: (_) => const MainPage());
       case RouteManager.sneakerDetailsRoute:
-        return MaterialPageRoute(builder: (_) => const SneakerDetailsView());
+        final args = settings.arguments as DetailsObject;
+        return MaterialPageRoute(
+            builder: (_) => SneakerDetailsView(
+                  object: args,
+                ));
       case RouteManager.search:
         return MaterialPageRoute(builder: (_) => const SearchView());
       case RouteManager.notifications:

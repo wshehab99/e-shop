@@ -1,13 +1,15 @@
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
+
 import '../../common/base_view_model/base_view_model.dart';
 
 class SneakersDetailsViewModel extends BaseViewModel
     with SneakersDetailsViewModelInput, SneakersDetailsViewModelOutput {
   final StreamController _sizeStreamController =
-      StreamController<List<SneakerSize>>();
+      BehaviorSubject<List<SneakerSize>>();
   final StreamController _currencyStreamController =
-      StreamController<List<Currency>>();
+      BehaviorSubject<List<Currency>>();
   final StreamController _validityStreamController = StreamController<bool>();
   final List<SneakerSize> _sizes = [
     SneakerSize(7.0),

@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
+
 import '../../common/base_view_model/base_view_model.dart';
 
 class MainViewModel extends BaseViewModel
     with MainViewModelInput, MainViewModelOutput {
   final StreamController<int> _currentIndexStreamController =
-      StreamController<int>();
+      BehaviorSubject<int>();
   // inputs
   @override
   Sink get inputCurrentIndex => _currentIndexStreamController.sink;

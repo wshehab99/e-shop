@@ -23,7 +23,7 @@ class SearchView extends StatelessWidget {
               ListView.separated(
                   physics: PrefManager.neverScrollPhysics,
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => FavoriteCard(),
+                  itemBuilder: (context, index) => const FavoriteCard(),
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: SizeManager.s10),
                   itemCount: 10),
