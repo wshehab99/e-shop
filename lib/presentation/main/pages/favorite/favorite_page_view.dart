@@ -11,7 +11,7 @@ class FavoritePageView extends StatelessWidget {
     return SingleChildScrollView(
       physics: PrefManager.appScrollPhysics,
       child: Column(
-        children: [
+        children: const [
           FavoriteCard(),
         ],
       ),

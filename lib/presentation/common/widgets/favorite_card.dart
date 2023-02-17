@@ -92,6 +92,5 @@ class FavoriteCard extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

@@ -2,8 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sneakers_shop/domain/use_cases/home_use_case.dart';
-import 'package:sneakers_shop/presentation/main/pages/home/view_model/home_view_model.dart';
+
 import '../data/data_source/local_data_source/local_data_source.dart';
 import '../data/data_source/local_data_source/local_data_source_implementer.dart';
 import '../data/data_source/remote_data_source/remote_data_source.dart';
@@ -13,9 +12,11 @@ import '../data/network/dio_factory/dio_factory.dart';
 import '../data/network/network_info/network_info.dart';
 import '../data/network/repository/repository.dart';
 import '../data/network/repository/repository_implementer.dart';
+import '../domain/use_cases/home_use_case.dart';
 import '../domain/use_cases/login_use_case.dart';
 import '../domain/use_cases/register_use_case.dart';
 import '../presentation/login/view_model/login_view_model.dart';
+import '../presentation/main/pages/home/view_model/home_view_model.dart';
 import '../presentation/onboarding/view_model/onboarding_view_model.dart';
 import '../presentation/register/view_model.dart/register_view_model.dart';
 import 'app_preferences.dart';
@@ -82,7 +83,17 @@ class DependencyInjection {
     }
   }
 
-  static void initHome() {
+  static void initMain() {
+    _initHome();
+    _initBag();
+    _initFavorite();
+    _initSettings();
+  }
+
+  static void initDetails() {}
+  static void initSearch() {}
+  static void initNotifications() {}
+  static void _initHome() {
     if (!instance.isRegistered<HomeUseCase>()) {
       instance.registerFactory<HomeUseCase>(
           () => HomeUseCase(instance<Repository>()));
@@ -91,4 +102,8 @@ class DependencyInjection {
           () => HomeViewMode1(instance<HomeUseCase>()));
     }
   }
+
+  static void _initBag() {}
+  static void _initFavorite() {}
+  static void _initSettings() {}
 }

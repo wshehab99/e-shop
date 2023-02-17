@@ -10,7 +10,7 @@ extension ProductResponseExtension on ProductResponse? {
         this?.brand.orEmpty() ?? AppConstants.empty,
         this?.model.orEmpty() ?? AppConstants.empty,
         this?.price.orZero() ?? 0,
-        this?.id.orEmpty() ?? AppConstants.empty,
+        this?.imgUrl.orEmpty() ?? AppConstants.empty,
       );
 }
 

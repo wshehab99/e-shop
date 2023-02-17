@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/presentation/main/pages/cart_page/view_model/cart_page_view_model.dart';
-import 'package:sneakers_shop/presentation/resources/asset_manager.dart';
 import 'package:sneakers_shop/presentation/resources/pref_manager.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 

@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:sneakers_shop/domain/model/derails_object.dart';
+
 import '../../common/widgets/app_divider.dart';
-import '../../resources/asset_manager.dart';
 import '../../resources/color_manger.dart';
+import '../../resources/pref_manager.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/string_manager.dart';
 import '../view_model/sneaker_details_view_model.dart';
 
 class SneakerDetailsView extends StatefulWidget {
-  const SneakerDetailsView({super.key});
-
+  const SneakerDetailsView({super.key, required this.object});
+  final DetailsObject object;
   @override
   State<SneakerDetailsView> createState() => _SneakerDetailsViewState();
 }
 
 class _SneakerDetailsViewState extends State<SneakerDetailsView> {
   final SneakersDetailsViewModel _viewModel = SneakersDetailsViewModel();
+
   @override
   void initState() {
     _viewModel.init();
@@ -29,8 +32,10 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    final double top = MediaQuery.of(context).padding.top;
     return Scaffold(
       body: SingleChildScrollView(
+        physics: PrefManager.appScrollPhysics,
         child: Column(
           children: [
             SizedBox(
@@ -38,30 +43,28 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
               child: Stack(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(
-                        right: SizeManager.s14,
-                        top: MediaQuery.of(context).padding.top),
+                    padding: EdgeInsets.only(right: SizeManager.s14, top: top),
                     height: MediaQuery.of(context).size.height / 2.25,
-                    decoration: const BoxDecoration(
-                        color: ColorManager.primary,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(400),
+                    decoration: BoxDecoration(
+                        color: widget.object.color,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(SizeManager.s400),
                         )),
                   ),
                   Positioned(
                     left: SizeManager.s0,
-                    top: SizeManager.s100,
+                    bottom: SizeManager.s0,
                     child: Transform(
                       transform: Matrix4.rotationZ(-0.35),
-                      child: Image.asset(
-                        AssetImageManager.nike1,
+                      child: Image.network(
+                        widget.object.product.imgUrl,
                         height: SizeManager.s150,
                       ),
                     ),
                   ),
                   Positioned(
                     left: SizeManager.s8,
-                    top: SizeManager.s8,
+                    top: top,
                     child: IconButton(
                       onPressed: () {
                         Navigator.pop(context);
@@ -71,45 +74,6 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
                     ),
                   ),
                 ],
-              ),
-            ),
-            const SizedBox(
-              height: SizeManager.s16,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: SizeManager.s10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset(
-                      AssetImageManager.nike1,
-                      height: SizeManager.s35,
-                    ),
-                    const SizedBox(
-                      width: SizeManager.s16,
-                    ),
-                    Image.asset(
-                      AssetImageManager.nike1,
-                      height: SizeManager.s35,
-                    ),
-                    const SizedBox(
-                      width: SizeManager.s16,
-                    ),
-                    Image.asset(
-                      AssetImageManager.nike1,
-                      height: SizeManager.s35,
-                    ),
-                    const SizedBox(
-                      width: SizeManager.s16,
-                    ),
-                    Image.asset(
-                      AssetImageManager.nike1,
-                      height: SizeManager.s35,
-                    ),
-                  ],
-                ),
               ),
             ),
             const SizedBox(
@@ -125,11 +89,11 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    StringManager.zoom,
+                    widget.object.product.model,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
-                    StringManager.price,
+                    widget.object.product.price.toString(),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
@@ -167,6 +131,9 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
               stream: _viewModel.outputAllValid,
               builder: (context, snapshot) {
                 return ElevatedButton(
+                  style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          widget.object.color)),
                   onPressed: snapshot.hasData && snapshot.data! ? () {} : null,
                   child: const Text(StringManager.addToCart),
                 );
@@ -221,6 +188,7 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: SizeManager.s10),
       child: SingleChildScrollView(
+        physics: PrefManager.appScrollPhysics,
         scrollDirection: Axis.horizontal,
         child: StreamBuilder<List<SneakerSize>>(
             stream: _viewModel.outputSize,

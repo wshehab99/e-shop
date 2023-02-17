@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ColorManager {
@@ -17,4 +19,19 @@ class ColorManager {
   static const Color offWhite = Color(0xFFFAF9F6);
   static const Color deepGreen = Color(0xFF06800a);
   static const Color blue = Color(0xff19BDFF);
+  static const List<Color> _list = [
+    Color(0xffED9728),
+    Color(0xff19BDFF),
+    Color(0xff317773),
+    Color(0xff00FFFF),
+    Color(0xffFF69B4),
+    Color(0xffEE4E34),
+    Color(0xffAA9ADA),
+    Color(0xff234E70),
+    Color(0xff1E2761),
+    Color(0xff7A2048),
+  ];
+  static Color randomColor() {
+    return _list[Random().nextInt(_list.length)];
+  }
 }
