@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sneakers_shop/domain/model/home_model.dart';
 import 'package:sneakers_shop/presentation/resources/pref_manager.dart';
 import 'package:sneakers_shop/presentation/resources/size_manager.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
@@ -23,10 +24,12 @@ class SearchView extends StatelessWidget {
               ListView.separated(
                   physics: PrefManager.neverScrollPhysics,
                   shrinkWrap: true,
-                  itemBuilder: (context, index) => const FavoriteCard(),
+                  itemBuilder: (context, index) => FavoriteCard(
+                        product: ProductResponseModel.empty(),
+                      ),
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: SizeManager.s10),
-                  itemCount: 10),
+                  itemCount: 0),
             ],
           ),
         ),

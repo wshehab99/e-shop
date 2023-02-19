@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:sneakers_shop/domain/model/home_model.dart';
 
-import '../../resources/asset_manager.dart';
 import '../../resources/color_manger.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/string_manager.dart';
 
 class FavoriteCard extends StatelessWidget {
-  const FavoriteCard({super.key});
-
+  const FavoriteCard({super.key, required this.product});
+  final ProductResponseModel product;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -28,15 +28,15 @@ class FavoriteCard extends StatelessWidget {
                         Radius.circular(SizeManager.s10),
                       ),
                     ),
-                    child: Image.asset(
-                      AssetImageManager.nike1,
+                    child: Image.network(
+                      product.imgUrl,
                       height: SizeManager.s100,
                       width: SizeManager.s100,
                     ),
                   ),
                   Positioned(
-                      top: -4,
-                      right: -4,
+                      top: SizeManager.ns4,
+                      right: SizeManager.ns4,
                       child: IconButton(
                         icon: const Icon(
                           Icons.favorite,
@@ -54,7 +54,7 @@ class FavoriteCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("${StringManager.nike} - ${StringManager.airMax}",
+                    Text("${product.brand} - ${product.model}",
                         style: Theme.of(context).textTheme.displayLarge),
                     Text(StringManager.loremIs,
                         style: Theme.of(context).textTheme.bodyLarge,
@@ -64,7 +64,7 @@ class FavoriteCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(StringManager.price,
+                        Text(product.price.toString(),
                             style: Theme.of(context).textTheme.displayLarge),
                         ElevatedButton(
                             onPressed: () {},

@@ -1,3 +1,7 @@
+import 'package:sneakers_shop/data/response/cart_response.dart';
+import 'package:sneakers_shop/data/response/favorite_response.dart';
+import 'package:sneakers_shop/data/response/settings_response.dart';
+
 import '../../../app/app_constant.dart';
 import '../../network/error_handler/error_handler.dart';
 import '../../response/home_response.dart';
@@ -20,5 +24,50 @@ class LocalDataSourceImplementer implements LocalDataSource {
   @override
   Future<void> setHomeResponse(HomeResponse response) async {
     data[AppConstants.cachedHomeResponse] = CachedData(response);
+  }
+
+  @override
+  Future<void> setCartResponse(CartResponse response) async {
+    data[AppConstants.cachedCartResponse] = CachedData(response);
+  }
+
+  @override
+  Future<CartResponse> getCartResponse() {
+    CachedData? cachedItem = data[AppConstants.cachedCartResponse];
+    if (cachedItem != null && cachedItem.isValid()) {
+      return cachedItem.data;
+    } else {
+      throw ErrorHandler.handle(DataSource.cacheError);
+    }
+  }
+
+  @override
+  Future<FavoriteResponse> getFavoriteResponse() {
+    CachedData? cachedItem = data[AppConstants.cachedFavoriteResponse];
+    if (cachedItem != null && cachedItem.isValid()) {
+      return cachedItem.data;
+    } else {
+      throw ErrorHandler.handle(DataSource.cacheError);
+    }
+  }
+
+  @override
+  Future<void> setFavoriteResponse(FavoriteResponse response) async {
+    data[AppConstants.cachedFavoriteResponse] = CachedData(response);
+  }
+
+  @override
+  Future<SettingsResponse> getSettingsResponse() {
+    CachedData? cachedItem = data[AppConstants.cachedSettingsResponse];
+    if (cachedItem != null && cachedItem.isValid()) {
+      return cachedItem.data;
+    } else {
+      throw ErrorHandler.handle(DataSource.cacheError);
+    }
+  }
+
+  @override
+  Future<void> setSettingsResponse(SettingsResponse response) async {
+    data[AppConstants.cachedSettingsResponse] = CachedData(response);
   }
 }

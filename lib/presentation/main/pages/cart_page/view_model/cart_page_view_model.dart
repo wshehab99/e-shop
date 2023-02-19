@@ -1,30 +1,23 @@
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
+import 'package:sneakers_shop/domain/model/home_model.dart';
+import 'package:sneakers_shop/domain/use_cases/cart_use_case.dart';
 import 'package:sneakers_shop/presentation/common/base_view_model/base_view_model.dart';
+import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
+import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
-import '../../../../resources/asset_manager.dart';
-import '../../../../resources/string_manager.dart';
+import '../../../../../domain/model/bag_model.dart';
 
 class CartPageViewModel extends BaseViewModel
     with CartPageViewModelInput, CartPageViewModelOutput {
   final StreamController _bagItemStreamController =
-      StreamController<List<BagItem>>();
+      BehaviorSubject<List<BagItem>>();
   final StreamController _totalPriceStreamController =
-      StreamController<double>();
-  final List<BagItem> _list = [
-    BagItem(
-      "${StringManager.nike} - ${StringManager.airMax}",
-      150.75,
-      AssetImageManager.nike1,
-      1,
-    ),
-    BagItem(
-      "${StringManager.nike} - ${StringManager.airMax}",
-      114.99,
-      AssetImageManager.nike1,
-      5,
-    ),
-  ];
+      BehaviorSubject<double>();
+  List<BagItem> _list = [];
+  final CartUseCase _useCase;
+  CartPageViewModel(this._useCase);
   //input
   @override
   Sink get inputBagItem => _bagItemStreamController.sink;
@@ -47,9 +40,10 @@ class CartPageViewModel extends BaseViewModel
 
   @override
   init() {
+    super.init();
     inputBagItem.add(_list);
     inputTotalPrice.add(_getTotalPrice());
-    super.init();
+    getCart();
   }
 
   @override
@@ -71,9 +65,29 @@ class CartPageViewModel extends BaseViewModel
   _getTotalPrice() {
     double totalPrice = 0;
     for (int i = 0; i < _list.length; i++) {
-      totalPrice += _list[i].itemPrice * _list[i].numberOfItems;
+      totalPrice += _list[i].product.price * _list[i].numberOfItems;
     }
     return totalPrice;
+  }
+
+  @override
+  getCart() async {
+    inputState.add(LoadingState(
+        type: StateRendererType.loadingFullScreenState,
+        message: StringManager.loading));
+    (await _useCase.execute(null)).fold((failure) {
+      inputState.add(ErrorState(
+          type: StateRendererType.errorFullScreenState,
+          message: failure.message));
+    }, (cartModel) {
+      _changeToBag(cartModel.cart);
+      inputState.add(ContentState());
+    });
+  }
+
+  _changeToBag(List<ProductResponseModel> cart) {
+    _list = cart.map((element) => element.toBag()).toList();
+    inputBagItem.add(_list);
   }
 }
 
@@ -82,17 +96,10 @@ abstract class CartPageViewModelInput {
   Sink get inputTotalPrice;
   void increaseItemNumber(index);
   void decreaseItemNumber(index);
+  getCart();
 }
 
 abstract class CartPageViewModelOutput {
   Stream<List<BagItem>> get outputBagItem;
   Stream<double> get outputTotalPrice;
-}
-
-class BagItem {
-  int numberOfItems;
-  String itemName;
-  String itemImageUrl;
-  double itemPrice;
-  BagItem(this.itemName, this.itemPrice, this.itemImageUrl, this.numberOfItems);
 }

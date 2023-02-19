@@ -1,3 +1,5 @@
+import 'package:sneakers_shop/app/app_constant.dart';
+
 class HomeModel {
   HomeDataResponseModel data;
 
@@ -20,4 +22,10 @@ class ProductResponseModel {
   String imgUrl;
   ProductResponseModel(
       this.id, this.brand, this.model, this.price, this.imgUrl);
+  factory ProductResponseModel.empty() => ProductResponseModel(
+      AppConstants.empty,
+      AppConstants.empty,
+      AppConstants.empty,
+      0.0,
+      AppConstants.empty);
 }

@@ -43,7 +43,7 @@ class BagCardListTail extends StatelessWidget {
                   top: SizeManager.s20,
                   child: Transform(
                     transform: Matrix4.rotationZ(-0.5),
-                    child: Image.asset(
+                    child: Image.network(
                       itemImageUrl,
                       height: SizeManager.s100,
                       width: SizeManager.s100,

@@ -1,5 +1,8 @@
 import 'package:sneakers_shop/data/network/app_api/app_api.dart';
+import 'package:sneakers_shop/data/response/cart_response.dart';
+import 'package:sneakers_shop/data/response/favorite_response.dart';
 import 'package:sneakers_shop/data/response/home_response.dart';
+import 'package:sneakers_shop/data/response/settings_response.dart';
 import 'package:sneakers_shop/presentation/common/freezed_data/login_object.dart';
 import 'package:sneakers_shop/data/response/authentication_response.dart';
 import 'package:sneakers_shop/presentation/common/freezed_data/register_object.dart';
@@ -23,5 +26,20 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<HomeResponse> home() {
     return _appServiceClient.home();
+  }
+
+  @override
+  Future<CartResponse> getCart() {
+    return _appServiceClient.getCart();
+  }
+
+  @override
+  Future<FavoriteResponse> getFavorite() {
+    return _appServiceClient.getFavorites();
+  }
+
+  @override
+  Future<SettingsResponse> getSettings() {
+    return _appServiceClient.getSettings();
   }
 }

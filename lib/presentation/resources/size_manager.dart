@@ -1,4 +1,5 @@
 class SizeManager {
+  static const double ns4 = -4;
   static const double s0 = 0;
 
   static const double s1 = 1.0;

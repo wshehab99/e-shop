@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:sneakers_shop/data/response/authentication_response.dart';
+import 'package:sneakers_shop/data/response/cart_response.dart';
+import 'package:sneakers_shop/data/response/favorite_response.dart';
 import 'package:sneakers_shop/data/response/home_response.dart';
+import 'package:sneakers_shop/data/response/settings_response.dart';
 
 import '../../../app/app_constant.dart';
 import 'app_api.dart';
@@ -75,5 +78,45 @@ class AppServiceClientImpl implements AppServiceClient {
       }
     }
     return options;
+  }
+
+  @override
+  Future<CartResponse> getCart() async {
+    final Map<String, dynamic> headers = {};
+    final Map<String, dynamic> extra = {};
+    final Map<String, dynamic> data = {};
+    final response = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CartResponse>(
+            Options(method: "GET", extra: extra, headers: headers)
+                .compose(_dio.options, "/api/cart", data: data)
+                .copyWith(baseUrl: _baseUrl)));
+    return CartResponse.fromJson(response.data!);
+  }
+
+  @override
+  Future<FavoriteResponse> getFavorites() async {
+    final Map<String, dynamic> headers = {};
+    final Map<String, dynamic> data = {};
+    final Map<String, dynamic> extra = {};
+    final Map<String, dynamic> queryParameters = {};
+    final response = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<FavoriteResponse>(
+            Options(headers: headers, extra: extra, method: "GET")
+                .compose(_dio.options, "/api/favorites",
+                    data: data, queryParameters: queryParameters)
+                .copyWith(baseUrl: _baseUrl)));
+    return FavoriteResponse.fromJson(response.data!);
+  }
+
+  @override
+  Future<SettingsResponse> getSettings() async {
+    final Map<String, dynamic> headers = {};
+    final Map<String, dynamic> extra = {};
+    final response = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SettingsResponse>(
+            Options(extra: extra, headers: headers, method: "GET")
+                .compose(_dio.options, "/api/settings")
+                .copyWith(baseUrl: _baseUrl)));
+    return SettingsResponse.fromJson(response.data!);
   }
 }
