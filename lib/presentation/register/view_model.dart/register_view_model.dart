@@ -5,7 +5,7 @@ import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
 import '../../../app/app_functions.dart';
-import '../../common/base_view_model/base_view_model.dart';
+import '../../base_view_model/base_view_model.dart';
 import '../../common/freezed_data/register_object.dart';
 
 class RegisterViewModel extends BaseViewModel

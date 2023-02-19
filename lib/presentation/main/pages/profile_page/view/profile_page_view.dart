@@ -3,7 +3,6 @@ import 'package:sneakers_shop/app/dependency_injection.dart';
 import 'package:sneakers_shop/domain/model/settings_model.dart';
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sneakers_shop/presentation/main/pages/profile_page/view_model/profile_view_model.dart';
-import 'package:sneakers_shop/presentation/resources/asset_manager.dart';
 import 'package:sneakers_shop/presentation/resources/color_manger.dart';
 import 'package:sneakers_shop/presentation/resources/pref_manager.dart';
 import 'package:sneakers_shop/presentation/resources/size_manager.dart';
@@ -64,16 +63,15 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                           height: SizeManager.s10,
                         ),
                         _buildListTile(
-                            context: context,
-                            leadingIcon: Icons.payment,
-                            title: StringManager.payment,
-                            list: snapshot.data!.data.payment,
-                            stream: _viewModel.outputPaymentShown,
-                            newList: snapshot.data!.data.newPayment,
-                            trailingText: StringManager.new2,
-                            onTap: () {
-                              _viewModel.showUnShowPayment();
-                            }),
+                          context: context,
+                          leadingIcon: Icons.payment,
+                          title: StringManager.payment,
+                          list: snapshot.data!.data.payment,
+                          stream: _viewModel.outputPaymentShown,
+                          newList: snapshot.data!.data.newPayment,
+                          trailingText: StringManager.new2,
+                          onTap: _viewModel.showUnShowPayment,
+                        ),
                         const SizedBox(
                           height: SizeManager.s10,
                         ),
@@ -84,22 +82,23 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                           list: snapshot.data!.data.achievement,
                           stream: _viewModel.outputAchievementShown,
                           newList: snapshot.data!.data.newAchievement,
+                          onTap: _viewModel.showUnShowAchievement,
                           leadingColor: ColorManager.deepGreen,
                         ),
                         const SizedBox(
                           height: SizeManager.s10,
                         ),
                         _buildListTile(
-                          context: context,
-                          leadingIcon: Icons.privacy_tip_outlined,
-                          title: StringManager.privacy,
-                          list: snapshot.data!.data.privacy,
-                          newList: [],
-                          stream: _viewModel.outputPrivacyShown,
-                          trailingText: StringManager.actionNeeded,
-                          trailingColor: ColorManager.error,
-                          leadingColor: ColorManager.lightGrey,
-                        ),
+                            context: context,
+                            leadingIcon: Icons.privacy_tip_outlined,
+                            title: StringManager.privacy,
+                            list: snapshot.data!.data.privacy,
+                            newList: [],
+                            stream: _viewModel.outputPrivacyShown,
+                            trailingText: StringManager.actionNeeded,
+                            trailingColor: ColorManager.error,
+                            leadingColor: ColorManager.lightGrey,
+                            onTap: _viewModel.showUnShowPrivacy),
                         const SizedBox(
                           height: SizeManager.s10,
                         ),
@@ -109,14 +108,14 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                           height: SizeManager.s10,
                         ),
                         _buildListTile(
-                          context: context,
-                          leadingIcon: Icons.language,
-                          title: StringManager.changeLanguage,
-                          list: [],
-                          newList: [],
-                          stream: _viewModel.outputLanguagesShown,
-                          leadingColor: ColorManager.blue,
-                        ),
+                            context: context,
+                            leadingIcon: Icons.language,
+                            title: StringManager.changeLanguage,
+                            list: [],
+                            newList: [],
+                            stream: _viewModel.outputLanguagesShown,
+                            leadingColor: ColorManager.blue,
+                            onTap: _viewModel.showUnShowLanguages),
                         const SizedBox(
                           height: SizeManager.s10,
                         ),
@@ -190,8 +189,8 @@ class _ProfilePageViewState extends State<ProfilePageView> {
       physics: PrefManager.appScrollPhysics,
       child: Row(
         children: [
-          const CircleAvatar(
-            backgroundImage: NetworkImage(AssetImageManager.profilePic),
+          CircleAvatar(
+            backgroundImage: NetworkImage(contact.imgUrl),
             radius: SizeManager.s35,
           ),
           const SizedBox(
@@ -269,7 +268,7 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          trailingText!,
+                                          "${newList.length} $trailingText",
                                           style: Theme.of(context)
                                               .textTheme
                                               .displaySmall!
@@ -277,7 +276,7 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                                                   color: ColorManager.white),
                                         ),
                                         const SizedBox(
-                                          width: 5,
+                                          width: SizeManager.s5,
                                         ),
                                         const Icon(
                                           Icons.arrow_forward_ios,
@@ -294,10 +293,18 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                     ),
                     if (snapshot.data!)
                       ListView.separated(
-                          itemBuilder: (context, index) => Text(
+                          itemBuilder: (context, index) =>
                               newList[index].runtimeType == PaymentModelResponse
-                                  ? newList[index].product.model
-                                  : newList[index].action),
+                                  ? ListTile(
+                                      title: Text(
+                                        "${newList[index].product.brand} ${newList[index].product.model}",
+                                      ),
+                                      trailing: Text(newList[index]
+                                          .product
+                                          .price
+                                          .toString()),
+                                    )
+                                  : Text(newList[index].action),
                           physics: PrefManager.neverScrollPhysics,
                           shrinkWrap: true,
                           separatorBuilder: (context, index) =>

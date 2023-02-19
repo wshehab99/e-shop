@@ -15,7 +15,10 @@ extension AuthenticationResponseExtension on AuthenticationResponse? {
 
 extension ContactResponseExtension on ContactResponse? {
   ContactResponseModel toModel() {
-    return ContactResponseModel(this?.name ?? AppConstants.empty,
-        this?.phone ?? AppConstants.empty, this?.email ?? AppConstants.empty);
+    return ContactResponseModel(
+        this?.name ?? AppConstants.empty,
+        this?.phone ?? AppConstants.empty,
+        this?.email ?? AppConstants.empty,
+        this?.imgUrl ?? AppConstants.empty);
   }
 }

@@ -5,7 +5,7 @@ import 'package:sneakers_shop/presentation/resources/asset_manager.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
 import '../../../domain/model/slider_object_model.dart';
-import '../../common/base_view_model/base_view_model.dart';
+import '../../base_view_model/base_view_model.dart';
 
 class OnboardingViewModel extends BaseViewModel
     with OnboardingViewModelInput, OnboardingViewModelOutput {

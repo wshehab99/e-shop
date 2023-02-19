@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
 
-import '../../common/base_view_model/base_view_model.dart';
+import '../../base_view_model/base_view_model.dart';
 
 class MainViewModel extends BaseViewModel
     with MainViewModelInput, MainViewModelOutput {

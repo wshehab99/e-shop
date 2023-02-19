@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 
 import '../../../../../domain/model/home_model.dart';
-import '../../../../common/base_view_model/base_view_model.dart';
+import '../../../../base_view_model/base_view_model.dart';
 import '../../../../../domain/use_cases/home_use_case.dart';
 import '../../../../common/state_renderer/state_renderer.dart';
 import '../../../../resources/string_manager.dart';
