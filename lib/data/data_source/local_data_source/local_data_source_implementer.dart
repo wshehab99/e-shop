@@ -9,10 +9,10 @@ import 'cached_data.dart';
 import 'local_data_source.dart';
 
 class LocalDataSourceImplementer implements LocalDataSource {
-  Map<String, CachedData> data = {};
+  Map data = <String, CachedData>{};
 
   @override
-  Future<HomeResponse> getHomeResponse() {
+  Future<HomeResponse> getHomeResponse() async {
     CachedData? cachedItem = data[AppConstants.cachedHomeResponse];
     if (cachedItem != null && cachedItem.isValid()) {
       return cachedItem.data;
@@ -32,7 +32,7 @@ class LocalDataSourceImplementer implements LocalDataSource {
   }
 
   @override
-  Future<CartResponse> getCartResponse() {
+  Future<CartResponse> getCartResponse() async {
     CachedData? cachedItem = data[AppConstants.cachedCartResponse];
     if (cachedItem != null && cachedItem.isValid()) {
       return cachedItem.data;
@@ -42,7 +42,7 @@ class LocalDataSourceImplementer implements LocalDataSource {
   }
 
   @override
-  Future<FavoriteResponse> getFavoriteResponse() {
+  Future<FavoriteResponse> getFavoriteResponse() async {
     CachedData? cachedItem = data[AppConstants.cachedFavoriteResponse];
     if (cachedItem != null && cachedItem.isValid()) {
       return cachedItem.data;
@@ -57,7 +57,7 @@ class LocalDataSourceImplementer implements LocalDataSource {
   }
 
   @override
-  Future<SettingsResponse> getSettingsResponse() {
+  Future<SettingsResponse> getSettingsResponse() async {
     CachedData? cachedItem = data[AppConstants.cachedSettingsResponse];
     if (cachedItem != null && cachedItem.isValid()) {
       return cachedItem.data;

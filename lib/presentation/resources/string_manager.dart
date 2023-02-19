@@ -35,7 +35,7 @@ abstract class StringManager {
 
   static const String dashboard = "Dashboard";
   static const String payment = "Payment";
-  static const String new2 = "2 New";
+  static const String new2 = "New";
   static const String achievements = "Achievements";
   static const String privacy = "Privacy";
   static const String actionNeeded = "Action Needed";

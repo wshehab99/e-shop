@@ -85,6 +85,7 @@ class RepositoryImplementer implements Repository {
       if (await _networkInfo.isConnected) {
         try {
           final response = await _remoteDataSource.getCart();
+          await _localDataSource.setCartResponse(response);
           return Right(response.toModel());
         } catch (error) {
           return Left(ErrorHandler.handle(error).failure);
@@ -103,6 +104,7 @@ class RepositoryImplementer implements Repository {
     } catch (_) {
       if (await _networkInfo.isConnected) {
         final response = await _remoteDataSource.getFavorite();
+        await _localDataSource.setFavoriteResponse(response);
         return Right(response.toModel());
       } else {
         return Left(DataSource.noInternetConnection.getFailure());
@@ -119,6 +121,7 @@ class RepositoryImplementer implements Repository {
       if (await _networkInfo.isConnected) {
         try {
           final response = await _remoteDataSource.getSettings();
+          await _localDataSource.setSettingsResponse(response);
           return Right(response.toModel());
         } catch (error) {
           return Left(ErrorHandler.handle(error).failure);

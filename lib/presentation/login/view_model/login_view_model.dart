@@ -6,7 +6,7 @@ import 'package:sneakers_shop/presentation/common/freezed_data/login_object.dart
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
-import '../../common/base_view_model/base_view_model.dart';
+import '../../base_view_model/base_view_model.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInput, LoginViewModelOutput {

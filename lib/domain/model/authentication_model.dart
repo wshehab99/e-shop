@@ -1,3 +1,5 @@
+import 'package:sneakers_shop/app/app_constant.dart';
+
 class AuthenticationResponseModel extends BaseResponseModel {
   ContactResponseModel contact;
 
@@ -8,9 +10,11 @@ class ContactResponseModel {
   String name;
   String phone;
   String email;
-  ContactResponseModel(this.name, this.phone, this.email);
+  String imgUrl;
+  ContactResponseModel(this.name, this.phone, this.email, this.imgUrl);
   factory ContactResponseModel.empty() {
-    return ContactResponseModel("", "", "");
+    return ContactResponseModel(AppConstants.empty, AppConstants.empty,
+        AppConstants.empty, AppConstants.empty);
   }
 }
 

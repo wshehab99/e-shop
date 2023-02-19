@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:rxdart/rxdart.dart';
 import 'package:sneakers_shop/domain/model/settings_model.dart';
 import 'package:sneakers_shop/domain/use_cases/settings_use_case.dart';
-import 'package:sneakers_shop/presentation/common/base_view_model/base_view_model.dart';
+import 'package:sneakers_shop/presentation/base_view_model/base_view_model.dart';
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
