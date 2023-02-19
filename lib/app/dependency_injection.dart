@@ -2,6 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sneakers_shop/domain/use_cases/cart_use_case.dart';
+import 'package:sneakers_shop/domain/use_cases/favorite_use_case.dart';
+import 'package:sneakers_shop/domain/use_cases/settings_use_case.dart';
+import 'package:sneakers_shop/presentation/main/pages/cart_page/view_model/cart_page_view_model.dart';
+import 'package:sneakers_shop/presentation/main/pages/profile_page/view_model/profile_view_model.dart';
+import 'package:sneakers_shop/presentation/main/view_model/main_page_view_model.dart';
 
 import '../data/data_source/local_data_source/local_data_source.dart';
 import '../data/data_source/local_data_source/local_data_source_implementer.dart';
@@ -16,6 +22,7 @@ import '../domain/use_cases/home_use_case.dart';
 import '../domain/use_cases/login_use_case.dart';
 import '../domain/use_cases/register_use_case.dart';
 import '../presentation/login/view_model/login_view_model.dart';
+import '../presentation/main/pages/favorite/view_model/favorite_page_view_model.dart';
 import '../presentation/main/pages/home/view_model/home_view_model.dart';
 import '../presentation/onboarding/view_model/onboarding_view_model.dart';
 import '../presentation/register/view_model.dart/register_view_model.dart';
@@ -84,26 +91,47 @@ class DependencyInjection {
   }
 
   static void initMain() {
-    _initHome();
-    _initBag();
-    _initFavorite();
-    _initSettings();
+    if (!instance.isRegistered<MainViewModel>()) {
+      instance.registerFactory<MainViewModel>(() => MainViewModel());
+      _initHome();
+      _initBag();
+      _initFavorite();
+      _initSettings();
+    }
   }
 
   static void initDetails() {}
   static void initSearch() {}
   static void initNotifications() {}
   static void _initHome() {
-    if (!instance.isRegistered<HomeUseCase>()) {
-      instance.registerFactory<HomeUseCase>(
-          () => HomeUseCase(instance<Repository>()));
+    instance.registerFactory<HomeUseCase>(
+        () => HomeUseCase(instance<Repository>()));
 
-      instance.registerFactory<HomeViewMode1>(
-          () => HomeViewMode1(instance<HomeUseCase>()));
-    }
+    instance.registerFactory<HomeViewMode1>(
+        () => HomeViewMode1(instance<HomeUseCase>()));
   }
 
-  static void _initBag() {}
-  static void _initFavorite() {}
-  static void _initSettings() {}
+  static void _initBag() {
+    instance.registerFactory<CartUseCase>(
+        () => CartUseCase(instance<Repository>()));
+
+    instance.registerFactory<CartPageViewModel>(
+        () => CartPageViewModel(instance<CartUseCase>()));
+  }
+
+  static void _initFavorite() {
+    instance.registerFactory<FavoriteUseCase>(
+        () => FavoriteUseCase(instance<Repository>()));
+
+    instance.registerFactory<FavoritePageViewModel>(
+        () => FavoritePageViewModel(instance<FavoriteUseCase>()));
+  }
+
+  static void _initSettings() {
+    instance.registerFactory<SettingsUseCase>(
+        () => SettingsUseCase(instance<Repository>()));
+
+    instance.registerFactory<ProfilePageViewModel>(
+        () => ProfilePageViewModel(instance<SettingsUseCase>()));
+  }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:sneakers_shop/app/dependency_injection.dart';
 import '../../resources/route_manger.dart';
 import '../../resources/size_manager.dart';
 import '../../resources/string_manager.dart';
 import '../pages/cart_page/view/cart_page_view.dart';
-import '../pages/favorite/favorite_page_view.dart';
+import '../pages/favorite/view/favorite_page_view.dart';
 import '../pages/home/view/home_page.dart';
 import '../pages/profile_page/view/profile_page_view.dart';
 import '../view_model/main_page_view_model.dart';
@@ -29,7 +30,8 @@ class _MainPageState extends State<MainPage> {
     StringManager.favorites,
     StringManager.myProfile,
   ];
-  final MainViewModel _mainViewModel = MainViewModel();
+  final MainViewModel _mainViewModel =
+      DependencyInjection.instance<MainViewModel>();
   @override
   void dispose() {
     _mainViewModel.dispose();

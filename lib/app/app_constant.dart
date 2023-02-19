@@ -4,6 +4,10 @@ abstract class AppConstants {
   static const String applicationJson = "application/json";
   static const String accept = "accept";
   static const String cachedHomeResponse = "cachedHomeResponse";
+  static const String cachedCartResponse = "cachedCartResponse";
+  static const String cachedFavoriteResponse = "cachedFavoriteResponse";
+  static const String cachedSettingsResponse = "cachedSettingsResponse";
+
   static const String authorization = "authorization";
   static const String baseUrl = "https://waleed.mocklab.io/";
   static const String empty = "";

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:sneakers_shop/app/dependency_injection.dart';
+import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sneakers_shop/presentation/main/pages/cart_page/view_model/cart_page_view_model.dart';
 import 'package:sneakers_shop/presentation/resources/pref_manager.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
+import '../../../../../domain/model/bag_model.dart';
 import '../../../../common/widgets/app_divider.dart';
 import '../../../../common/widgets/bag_card_list_tail.dart';
 
@@ -16,7 +19,8 @@ class CartPageView extends StatefulWidget {
 }
 
 class _CartPageViewState extends State<CartPageView> {
-  final CartPageViewModel _viewModel = CartPageViewModel();
+  final CartPageViewModel _viewModel =
+      DependencyInjection.instance<CartPageViewModel>();
   @override
   void initState() {
     _viewModel.init();
@@ -31,6 +35,15 @@ class _CartPageViewState extends State<CartPageView> {
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<FlowState>(
+        stream: _viewModel.outputState,
+        builder: (context, snapshot) {
+          return snapshot.data?.renderWidget(context, _getContent()) ??
+              _getContent();
+        });
+  }
+
+  Widget _getContent() {
     return SingleChildScrollView(
       physics: PrefManager.appScrollPhysics,
       child: Column(
@@ -79,9 +92,9 @@ class _CartPageViewState extends State<CartPageView> {
                   increaseItemNumber: () {
                     _viewModel.increaseItemNumber(index);
                   },
-                  itemImageUrl: list[index].itemImageUrl,
-                  itemName: list[index].itemName,
-                  itemPrice: list[index].itemPrice.toString(),
+                  itemImageUrl: list[index].product.imgUrl,
+                  itemName: list[index].product.model,
+                  itemPrice: list[index].product.price.toString(),
                   numberOfItem: list[index].numberOfItems,
                 );
               });
