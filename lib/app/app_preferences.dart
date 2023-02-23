@@ -10,4 +10,16 @@ class AppPreferences {
     return _sharedPreferences.getString(AppConstants.languageKey) ??
         LanguageType.english.getLanguage();
   }
+
+  Future<bool> setAppLanguage(String value) async {
+    return await _sharedPreferences.setString(AppConstants.languageKey, value);
+  }
+
+  bool? getIsDark() {
+    return _sharedPreferences.getBool(AppConstants.darkKey);
+  }
+
+  Future<bool> setIsDark(bool value) async {
+    return await _sharedPreferences.setBool(AppConstants.darkKey, value);
+  }
 }

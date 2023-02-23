@@ -3,6 +3,8 @@ import 'package:sneakers_shop/data/response/authentication_response.dart';
 import 'package:sneakers_shop/data/response/cart_response.dart';
 import 'package:sneakers_shop/data/response/favorite_response.dart';
 import 'package:sneakers_shop/data/response/home_response.dart';
+import 'package:sneakers_shop/data/response/payment_authentication.dart';
+import 'package:sneakers_shop/data/response/payment_order_registration.dart';
 import 'package:sneakers_shop/data/response/settings_response.dart';
 
 import '../../../app/app_constant.dart';
@@ -118,5 +120,42 @@ class AppServiceClientImpl implements AppServiceClient {
                 .compose(_dio.options, "/api/settings")
                 .copyWith(baseUrl: _baseUrl)));
     return SettingsResponse.fromJson(response.data!);
+  }
+
+  @override
+  Future<PaymentAuthenticationResponse> paymentAuthenticationResponse() async {
+    Map<String, dynamic> headers = {};
+    Map<String, dynamic> extra = {};
+    Map<String, dynamic> queryParameters = {};
+    Map<String, dynamic> data = {
+      "api_key": "api_key" //todo
+    };
+    final response = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PaymentAuthenticationResponse>(
+            Options(extra: extra, headers: headers, method: "POST")
+                .compose(_dio.options, "",
+                    queryParameters: queryParameters, data: data)
+                .copyWith(baseUrl: AppConstants.paymentAuthenticationUrl)));
+    return PaymentAuthenticationResponse.fromJson(response.data!);
+  }
+
+  @override
+  Future<PaymentOrderRegistrationResponse>
+      paymentOrderRegistrationResponse() async {
+    Map<String, dynamic> headers = {};
+    Map<String, dynamic> extra = {};
+    Map<String, dynamic> queryParameters = {};
+    Map<String, dynamic> data = {
+      "api_key": "api_key" //todo
+    };
+    final response = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PaymentOrderRegistrationResponse>(
+            Options(extra: extra, headers: headers, method: "POST")
+                .compose(_dio.options, "")
+                .copyWith(
+                    baseUrl: AppConstants.paymentOrderRegistrationUrl,
+                    data: data,
+                    queryParameters: queryParameters)));
+    return PaymentOrderRegistrationResponse.fromJson(response.data!);
   }
 }

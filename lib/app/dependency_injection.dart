@@ -8,6 +8,7 @@ import 'package:sneakers_shop/domain/use_cases/settings_use_case.dart';
 import 'package:sneakers_shop/presentation/main/pages/cart_page/view_model/cart_page_view_model.dart';
 import 'package:sneakers_shop/presentation/main/pages/profile_page/view_model/profile_view_model.dart';
 import 'package:sneakers_shop/presentation/main/view_model/main_page_view_model.dart';
+import 'package:sneakers_shop/presentation/resources/them_manager/view_model/theme_view_model.dart';
 
 import '../data/data_source/local_data_source/local_data_source.dart';
 import '../data/data_source/local_data_source/local_data_source_implementer.dart';
@@ -38,6 +39,9 @@ class DependencyInjection {
     //app preferences
     instance.registerLazySingleton<AppPreferences>(
         () => AppPreferences(sharedPreferences));
+    //theme manager
+    instance.registerLazySingleton<ThemeMangerViewModel>(
+        () => ThemeMangerViewModel(instance<AppPreferences>()));
     //dio factory
     instance.registerLazySingleton<DioFactory>(
         () => DioFactory(instance<AppPreferences>()));
