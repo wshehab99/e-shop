@@ -7,6 +7,7 @@ import 'package:sneakers_shop/presentation/resources/color_manger.dart';
 import 'package:sneakers_shop/presentation/resources/pref_manager.dart';
 import 'package:sneakers_shop/presentation/resources/size_manager.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
+import 'package:sneakers_shop/presentation/resources/them_manager/view_model/theme_view_model.dart';
 
 import '../../../../../domain/model/authentication_model.dart';
 
@@ -20,6 +21,8 @@ class ProfilePageView extends StatefulWidget {
 class _ProfilePageViewState extends State<ProfilePageView> {
   final ProfilePageViewModel _viewModel =
       DependencyInjection.instance<ProfilePageViewModel>();
+  final ThemeMangerViewModel _themeViewModel =
+      DependencyInjection.instance<ThemeMangerViewModel>();
   @override
   void initState() {
     _viewModel.init();
@@ -120,14 +123,14 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                           height: SizeManager.s10,
                         ),
                         _buildListTile(
-                          context: context,
-                          leadingIcon: Icons.dark_mode,
-                          title: StringManager.darkMode,
-                          list: [],
-                          newList: [],
-                          stream: _viewModel.outputLanguagesShown,
-                          leadingColor: ColorManager.darkGrey,
-                        ),
+                            context: context,
+                            leadingIcon: Icons.dark_mode,
+                            title: StringManager.darkMode,
+                            list: [],
+                            newList: [],
+                            stream: _themeViewModel.isDarkOutput,
+                            leadingColor: ColorManager.darkGrey,
+                            onTap: _themeViewModel.changeTheme),
                         const SizedBox(
                           height: SizeManager.s10,
                         ),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/presentation/resources/style_manager.dart';
 
-import 'color_manger.dart';
-import 'input_border_manager.dart';
-import 'size_manager.dart';
+import '../color_manger.dart';
+import '../input_border_manager.dart';
+import '../size_manager.dart';
 
 abstract class ThemeManager {
   static ThemeData appTheme = ThemeData(
@@ -168,6 +168,67 @@ abstract class ThemeManager {
       // focused border style
       focusedErrorBorder: InputBorderManager.getInputBorder(
         color: ColorManager.primary,
+      ),
+    ),
+  );
+  static ThemeData darkTheme = appTheme.copyWith(
+    scaffoldBackgroundColor: ColorManager.offWhite,
+    cardTheme: appTheme.cardTheme.copyWith(color: ColorManager.black),
+    bottomNavigationBarTheme: appTheme.bottomNavigationBarTheme.copyWith(
+      backgroundColor: ColorManager.black,
+    ),
+    appBarTheme: appTheme.appBarTheme.copyWith(
+      iconTheme:
+          appTheme.appBarTheme.iconTheme!.copyWith(color: ColorManager.white),
+      titleTextStyle: appTheme.appBarTheme.titleTextStyle!.copyWith(
+        color: ColorManager.white,
+      ),
+      color: ColorManager.black,
+      elevation: SizeManager.s0,
+      shadowColor: ColorManager.black,
+    ),
+    inputDecorationTheme: appTheme.inputDecorationTheme.copyWith(
+      hintStyle: StyleManager.getRegularStyle(
+          color: ColorManager.offWhite, fontSize: SizeManager.s14),
+      labelStyle: StyleManager.getMediumStyle(
+          color: ColorManager.offWhite, fontSize: SizeManager.s14),
+      errorStyle: StyleManager.getRegularStyle(color: ColorManager.error),
+
+      // enabled border style
+      enabledBorder: InputBorderManager.getInputBorder(
+        color: ColorManager.grey,
+      ),
+    ),
+    textTheme: appTheme.textTheme.copyWith(
+      headlineLarge: appTheme.textTheme.headlineLarge!.copyWith(
+        color: ColorManager.offWhite,
+      ),
+      headlineMedium: appTheme.textTheme.headlineMedium!.copyWith(
+        color: ColorManager.black,
+      ),
+      titleMedium: appTheme.textTheme.titleMedium!.copyWith(
+        color: ColorManager.white,
+      ),
+      labelLarge: appTheme.textTheme.labelLarge!.copyWith(
+        color: ColorManager.white,
+      ),
+      headlineSmall: appTheme.textTheme.headlineSmall!.copyWith(
+        color: ColorManager.black,
+      ),
+      bodyLarge: appTheme.textTheme.bodyLarge!.copyWith(
+        color: ColorManager.offWhite,
+      ),
+      bodyMedium: appTheme.textTheme.bodyMedium!.copyWith(
+        color: ColorManager.white,
+      ),
+      displayLarge: appTheme.textTheme.displayLarge!.copyWith(
+        color: ColorManager.white,
+      ),
+      titleSmall: appTheme.textTheme.titleSmall!.copyWith(
+        color: ColorManager.black,
+      ),
+      displaySmall: appTheme.textTheme.displaySmall!.copyWith(
+        color: ColorManager.white,
       ),
     ),
   );
