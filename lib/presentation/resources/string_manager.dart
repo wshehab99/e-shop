@@ -1,88 +1,83 @@
 abstract class StringManager {
-  static const String discover = "Discover";
-  static const String upcoming = "Upcoming";
-  static const String featured = "Featured";
-  static const String news = "New";
-  static const String noRouteFound = "No route found";
-  static const String myBag = "My Bag";
-  static const String favorites = "Favorites";
+  static const String discover = "discover";
+  static const String upcoming = "upcoming";
+  static const String featured = "featured";
+  static const String news = "new";
+  static const String noRouteFound = "no_route_found";
+  static const String myBag = "my_bag";
+  static const String favorites = "favorites";
 
-  static const String myProfile = "My Profile";
-  static const String nike = "Nike";
-  static const String noItemAdded = "No item added";
-  static const String airMax = "Air-Max";
-  static const String price = "130.00";
-  static const String more = "More";
-  static const String us = "US";
-  static const String uk = "UK";
-  static const String addToCart = "Add to cart";
-  static const String zoom = "ZOOM";
-  static const String loremIs =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin turpis magna, pulvinar id tortor id, convallis convallis ex. Nullam dapibus ligula eu erat mollis, faucibus molestie metus maximus. Vivamus mattis erat eget sapien aliquam vestibulum. Integer eu eros non ante varius vehicula. Ut sed commodo orci. Quisque laoreet rutrum commodo. Vivamus fringilla quis enim sit amet placerat. Integer orci nisi, elementum at eleifend eu, semper ac justo. Sed odio neque, tempus vitae enim et, sagittis condimentum nisl. Aliquam laoreet fermentum purus, non fringilla ligula rutrum vitae. Suspendisse convallis pellentesque odio, ut auctor enim suscipit id. Aliquam eu lectus metus. Suspendisse potenti.";
-  static const String size = "SIZE";
-  static const String next = "NEXT";
-  static const String total = "TOTAL";
-  static const String skip = "SKIP";
-  static const String register = "Register";
-  static const String loading = "Loading ...";
+  static const String myProfile = "my_profile";
+  static const String nike = "nike";
+  static const String noItemAdded = "no_item_added";
+  static const String airMax = "air_max";
+  static const String price = "price";
+  static const String more = "more";
+  static const String us = "us";
+  static const String uk = "uk";
+  static const String addToCart = "add_to_cart";
+  static const String zoom = "zoom";
+  static const String loremIs = "lorem_is";
+  static const String size = "size";
+  static const String next = "next";
+  static const String total = "total";
+  static const String skip = "skip";
+  static const String register = "register";
+  static const String loading = "loading";
 
-  static const String retryAgain = "Retry again";
-  static const String cancel = "Cancel";
-  static const String notMember = "not a member?";
-  static const String alreadyMember = "already a member?";
+  static const String retryAgain = "retry_again";
+  static const String cancel = "cancel";
+  static const String notMember = "not_member";
+  static const String alreadyMember = "already_member";
 
-  static const String forgetPassword = "Forget Password?";
+  static const String forgetPassword = "forget_password";
 
-  static const String dashboard = "Dashboard";
-  static const String payment = "Payment";
-  static const String new2 = "New";
-  static const String achievements = "Achievements";
-  static const String privacy = "Privacy";
-  static const String actionNeeded = "Action Needed";
-  static const String myAccount = "My Account";
-  static const String switchToOtherAccount = "Switch to Other Account";
-  static const String logOut = "Log Out";
-  static const String login = "Login";
+  static const String dashboard = "dashboard";
+  static const String payment = "payment";
+  static const String achievements = "achievements";
+  static const String privacy = "privacy";
+  static const String actionNeeded = "action_needed";
+  static const String myAccount = "my_account";
+  static const String switchToOtherAccount = "switch_to_other_account";
+  static const String logOut = "log_out";
+  static const String login = "login";
 
-  static const String settings = "Settings";
-  static const String changeLanguage = "Change language";
-  static const String darkMode = "Dark Mode";
-  static const String search = "Search";
+  static const String settings = "settings";
+  static const String changeLanguage = "change_language";
+  static const String darkMode = "dark_mode";
+  static const String search = "search";
 
-  static const String success = "Success";
+  static const String success = "success";
 
-  static const String noContent = "No Content";
-  static const String badRequest = "Bad Request";
-  static const String forbidden = "Forbidden";
-  static const String unauthorized = "Unauthorized";
-  static const String notFound = "Not Found";
-  static const String internalServerError = "Internal Server Error";
-  static const String connectTimeout = "Connect Timeout";
-  static const String cancelled = "Cancelled";
-  static const String receiveTimeout = "Receive Timeout";
-  static const String sendTimeout = "Send Timeout";
-  static const String cacheError = "Cache Error";
-  static const String noInternetConnection = "No Internet Connection";
-  static const String unknown = "Unknown";
+  static const String noContent = "no_content";
+  static const String badRequest = "bad_request";
+  static const String forbidden = "forbidden";
+  static const String unauthorized = "unauthorized";
+  static const String notFound = "not_found";
+  static const String internalServerError = "internal_server_error";
+  static const String connectTimeout = "connect_timeout";
+  static const String cancelled = "cancelled";
+  static const String receiveTimeout = "receive_timeout";
+  static const String sendTimeout = "send_timeout";
+  static const String cacheError = "cache_error";
+  static const String noInternetConnection = "no_internet_connection";
+  static const String unknown = "unknown";
 
-  static const String username = "Username";
-  static const String name = "Full name";
+  static const String username = "username";
+  static const String name = "name";
 
-  static const String password = "Password";
-  static const String usernameError = "Username must be at least 6 characters";
-  static const String nameError = "Full name must be at least 6 characters";
+  static const String password = "password";
+  static const String usernameError = "username_error";
+  static const String nameError = "name_error";
 
-  static const String passwordError = "Password must be at least 8 characters";
+  static const String passwordError = "password_error";
 
-  static const String onboardingTitle1 = "Online shopping";
-  static const String onboardingTitle2 = "Add to cart";
+  static const String onboardingTitle1 = "onboarding_title1";
+  static const String onboardingTitle2 = "onboarding_title2";
 
-  static const String onboardingTitle3 = "Payment Successful";
+  static const String onboardingTitle3 = "onboarding_title3";
 
-  static const String onboardingSubTitle1 =
-      "Women Fashion Shopping Online - Shop from a huge range of latest women clothing, shoes, makeup Kits, Watches, footwear and more for women at best price";
-  static const String onboardingSubTitle2 =
-      "Add to cart button works on product pages. The customizations in this section compatible with dynamic checkout buttons";
-  static const String onboardingSubTitle3 =
-      "Your payment has been successfully completed. You will receive a confirmation email within a few minutes.";
+  static const String onboardingSubTitle1 = "onboarding_sub_title1";
+  static const String onboardingSubTitle2 = "onboarding_sub_title2";
+  static const String onboardingSubTitle3 = "onboarding_sub_title3";
 }

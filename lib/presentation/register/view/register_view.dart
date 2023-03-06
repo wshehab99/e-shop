@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import '../../../app/dependency_injection.dart';
@@ -139,7 +140,7 @@ class _RegisterViewState extends State<RegisterView> {
                   return ElevatedButton(
                       onPressed:
                           snapshot.data ?? false ? _viewModel.register : null,
-                      child: const Text(StringManager.register));
+                      child: const Text(StringManager.register).tr());
                 }),
           ),
           const SizedBox(
@@ -151,7 +152,7 @@ class _RegisterViewState extends State<RegisterView> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(StringManager.alreadyMember,
-                    style: Theme.of(context).textTheme.bodySmall),
+                    style: Theme.of(context).textTheme.bodySmall).tr(),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -162,7 +163,7 @@ class _RegisterViewState extends State<RegisterView> {
                               borderRadius: BorderRadius.zero))),
                   child: const Text(
                     StringManager.login,
-                  ),
+                  ).tr(),
                 ),
               ],
             ),

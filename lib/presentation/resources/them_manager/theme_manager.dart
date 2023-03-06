@@ -172,6 +172,7 @@ abstract class ThemeManager {
     ),
   );
   static ThemeData darkTheme = appTheme.copyWith(
+    
     scaffoldBackgroundColor: ColorManager.offWhite,
     cardTheme: appTheme.cardTheme.copyWith(color: ColorManager.black),
     bottomNavigationBarTheme: appTheme.bottomNavigationBarTheme.copyWith(

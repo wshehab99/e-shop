@@ -32,7 +32,7 @@ class CartPageViewModel extends BaseViewModel
   Stream<List<BagItem>> get outputBagItem =>
       _bagItemStreamController.stream.map((list) => list);
   @override
-  dispose() {
+  dispose()async {
     _bagItemStreamController.close();
     _totalPriceStreamController.close();
     super.dispose();

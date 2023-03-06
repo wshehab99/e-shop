@@ -32,3 +32,12 @@ extension HomeDataResponseExtension on HomeResponse? {
     return HomeModel(HomeDataResponseModel(upcoming, featured, news, more));
   }
 }
+extension ProductModelExtension on ProductResponseModel? {
+  ProductResponse toResponse() => ProductResponse(
+        this?.id.orEmpty() ?? AppConstants.empty,
+        this?.brand.orEmpty() ?? AppConstants.empty,
+        this?.model.orEmpty() ?? AppConstants.empty,
+        this?.price.orZero() ?? 0,
+        this?.imgUrl.orEmpty() ?? AppConstants.empty,
+      );
+}

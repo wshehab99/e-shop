@@ -131,4 +131,9 @@ class RepositoryImplementer implements Repository {
       }
     }
   }
+
+  @override
+  Future<void> setCart(CartModel cart)async {
+ return await  _localDataSource.setCartResponse(cart.toResponse());
+  }
 }

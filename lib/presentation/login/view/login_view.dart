@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:sneakers_shop/app/dependency_injection.dart';
@@ -122,7 +123,7 @@ class _LoginViewState extends State<LoginView> {
                   return ElevatedButton(
                       onPressed:
                           snapshot.data ?? false ? _viewModel.login : null,
-                      child: const Text(StringManager.login));
+                      child: const Text(StringManager.login).tr());
                 }),
           ),
           const SizedBox(
@@ -145,12 +146,12 @@ class _LoginViewState extends State<LoginView> {
                       .textTheme
                       .bodySmall!
                       .copyWith(color: ColorManager.primary),
-                ),
+                ).tr(),
               ),
               Row(
                 children: [
                   Text(StringManager.notMember,
-                      style: Theme.of(context).textTheme.bodySmall),
+                      style: Theme.of(context).textTheme.bodySmall).tr(),
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, RouteManager.register);
@@ -161,7 +162,7 @@ class _LoginViewState extends State<LoginView> {
                                 borderRadius: BorderRadius.zero))),
                     child: const Text(
                       StringManager.register,
-                    ),
+                    ).tr(),
                   ),
                 ],
               ),

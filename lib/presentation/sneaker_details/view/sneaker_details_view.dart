@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/domain/model/derails_object.dart';
 
@@ -91,11 +92,11 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
                   Text(
                     widget.object.product.model,
                     style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  ).tr(),
                   Text(
                     widget.object.product.price.toString(),
                     style: Theme.of(context).textTheme.titleMedium,
-                  ),
+                  ).tr(),
                 ],
               ),
             ),
@@ -107,7 +108,7 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
               child: Text(
                 StringManager.loremIs,
                 style: Theme.of(context).textTheme.bodyLarge,
-              ),
+              ).tr(),
             ),
             const SizedBox(
               height: SizeManager.s16,
@@ -135,7 +136,7 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
                       backgroundColor: MaterialStateProperty.all<Color>(
                           widget.object.color)),
                   onPressed: snapshot.hasData && snapshot.data! ? () {} : null,
-                  child: const Text(StringManager.addToCart),
+                  child: const Text(StringManager.addToCart).tr(),
                 );
               }),
         ),
@@ -152,7 +153,7 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
           Text(
             StringManager.size,
             style: Theme.of(context).textTheme.titleMedium,
-          ),
+          ).tr(),
           StreamBuilder<List<Currency>>(
               stream: _viewModel.outputCurrency,
               builder: (context, snapshot) {
@@ -175,7 +176,7 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
                                               ? ColorManager.black
                                               : ColorManager.lightGrey,
                                         ),
-                                  ))
+                                  ).tr())
                           ]
                         : []);
               }),
@@ -225,7 +226,7 @@ class _SneakerDetailsViewState extends State<SneakerDetailsView> {
                                             ? ColorManager.white
                                             : ColorManager.lightGrey,
                                       ),
-                                ),
+                                ).tr(),
                               ),
                             ),
                           const SizedBox(

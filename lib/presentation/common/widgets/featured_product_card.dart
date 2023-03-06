@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../domain/model/home_model.dart';
@@ -31,7 +32,7 @@ class FeaturedProductCard extends StatelessWidget {
                     Text(
                       product.brand,
                       style: Theme.of(context).textTheme.titleSmall,
-                    ),
+                    ).tr(),
                     const Spacer(),
                     const Icon(
                       Icons.favorite_border,
@@ -45,11 +46,11 @@ class FeaturedProductCard extends StatelessWidget {
                 Text(
                   product.model,
                   style: Theme.of(context).textTheme.headlineMedium,
-                ),
+                ).tr(),
                 Text(
                   product.price.toString(),
                   style: Theme.of(context).textTheme.headlineSmall,
-                ),
+                ).tr(),
                 const Spacer(),
                 const Align(
                     alignment: Alignment.bottomRight,

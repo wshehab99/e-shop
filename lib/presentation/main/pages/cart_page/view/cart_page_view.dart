@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/app/dependency_injection.dart';
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
@@ -12,7 +13,7 @@ import '../../../../common/widgets/bag_card_list_tail.dart';
 import '../../../../resources/size_manager.dart';
 
 class CartPageView extends StatefulWidget {
-  const CartPageView({super.key});
+   CartPageView({super.key});
 
   @override
   State<CartPageView> createState() => _CartPageViewState();
@@ -21,29 +22,18 @@ class CartPageView extends StatefulWidget {
 class _CartPageViewState extends State<CartPageView> {
   final CartPageViewModel _viewModel =
       DependencyInjection.instance<CartPageViewModel>();
-  @override
-  void initState() {
-    _viewModel.init();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.renderWidget(context, _getContent()) ??
-              _getContent();
+          return snapshot.data?.renderWidget(context, _getContent(context)) ??
+              _getContent(context);
         });
   }
 
-  Widget _getContent() {
+  Widget _getContent(BuildContext context) {
     return SingleChildScrollView(
       physics: PrefManager.appScrollPhysics,
       child: Column(
@@ -57,7 +47,7 @@ class _CartPageViewState extends State<CartPageView> {
               padding: const EdgeInsets.all(SizeManager.s10),
               child: ElevatedButton(
                 onPressed: () {},
-                child: const Text(StringManager.next),
+                child: const Text(StringManager.next).tr(),
               ),
             ),
           ),
@@ -106,7 +96,7 @@ class _CartPageViewState extends State<CartPageView> {
       child: Text(
         StringManager.noItemAdded,
         style: Theme.of(context).textTheme.labelLarge,
-      ),
+      ).tr(),
     );
   }
 
@@ -119,7 +109,7 @@ class _CartPageViewState extends State<CartPageView> {
           Text(
             StringManager.total,
             style: Theme.of(context).textTheme.displayLarge,
-          ),
+          ).tr(),
           StreamBuilder<double>(
               stream: _viewModel.outputTotalPrice,
               builder: (context, snapshot) {

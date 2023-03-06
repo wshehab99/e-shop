@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/domain/model/home_model.dart';
 
@@ -55,17 +56,17 @@ class FavoriteCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("${product.brand} - ${product.model}",
-                        style: Theme.of(context).textTheme.displayLarge),
+                        style: Theme.of(context).textTheme.displayLarge).tr(),
                     Text(StringManager.loremIs,
                         style: Theme.of(context).textTheme.bodyLarge,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
-                        softWrap: true),
+                        softWrap: true).tr(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(product.price.toString(),
-                            style: Theme.of(context).textTheme.displayLarge),
+                            style: Theme.of(context).textTheme.displayLarge).tr(),
                         ElevatedButton(
                             onPressed: () {},
                             style: Theme.of(context)
@@ -81,7 +82,7 @@ class FavoriteCard extends StatelessWidget {
                                             fontSize: SizeManager.s12))),
                             child: const Text(
                               StringManager.addToCart,
-                            ))
+                            ).tr())
                       ],
                     )
                   ],

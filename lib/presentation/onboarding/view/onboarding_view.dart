@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sneakers_shop/app/dependency_injection.dart';
@@ -70,7 +71,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                             StringManager.skip,
                             style: Theme.of(context).textTheme.titleMedium,
                             textAlign: TextAlign.end,
-                          ),
+                          ).tr(),
                           onPressed: () {
                             Navigator.pushReplacementNamed(
                                 context, RouteManager.login);

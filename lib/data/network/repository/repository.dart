@@ -14,6 +14,7 @@ abstract class Repository {
       RegisterObject register);
   Future<Either<Failure, HomeModel>> getHomeDetails();
   Future<Either<Failure, CartModel>> getCart();
+  Future<void> setCart(CartModel cart);
   Future<Either<Failure, FavoriteModel>> getFavorite();
   Future<Either<Failure, SettingsModel>> getSettings();
 }
