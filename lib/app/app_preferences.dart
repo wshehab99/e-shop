@@ -1,3 +1,4 @@
+import "package:flutter/material.dart";
 import "package:shared_preferences/shared_preferences.dart";
 import "package:sneakers_shop/presentation/resources/language_manager.dart";
 
@@ -21,5 +22,18 @@ class AppPreferences {
 
   Future<bool> setIsDark(bool value) async {
     return await _sharedPreferences.setBool(AppConstants.darkKey, value);
+  }
+
+  String getPaymentToken() {
+    return _sharedPreferences.getString(AppConstants.authToken) ??
+        AppConstants.empty;
+  }
+
+  Future<bool> setPaymentToken(String value) async {
+    return await _sharedPreferences.setString(AppConstants.authToken, value);
+  }
+
+  Locale getAppLocale() {
+    return LanguageType.english.getLocaleFromSharedPref(getAppLanguage());
   }
 }

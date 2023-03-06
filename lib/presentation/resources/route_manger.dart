@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/domain/model/derails_object.dart';
 import '../../app/dependency_injection.dart';
@@ -64,12 +65,12 @@ class RouteGenerator {
               appBar: AppBar(
                 title: const Text(
                   StringManager.noRouteFound,
-                ),
+                ).tr(),
               ),
-              body: const Center(
-                  child: Text(
+              body:  Center(
+                  child: const Text(
                 StringManager.noRouteFound,
-              )),
+              ).tr()),
             ));
   }
 }

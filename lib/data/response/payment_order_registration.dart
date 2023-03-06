@@ -1,53 +1,69 @@
 class PaymentOrderRegistrationResponse {
   int? id;
-  String? created_at;
-  String? delivery_needed;
+  String? createdAt;
+  String? deliveryNeeded;
   PaymentOrderMerchant? merchant;
   String? collector;
-  int? amount_cents;
-  PaymentOrderShippingData? shipping_data;
+  int? amountCents;
+  PaymentOrderShippingData? shippingData;
   String? currency;
-  String? is_payment_locked;
-  String? merchant_order_id;
-  String? wallet_notification;
-  int? paid_amount_cents;
+  String? isPaymentLocked;
+  String? merchantOrderId;
+  String? walletNotification;
+  int? paidAmountCents;
   PaymentOrderRegistrationResponse(
       this.id,
-      this.created_at,
-      this.delivery_needed,
+      this.createdAt,
+      this.deliveryNeeded,
       this.merchant,
       this.collector,
-      this.amount_cents,
-      this.shipping_data,
+      this.amountCents,
+      this.shippingData,
       this.currency,
-      this.is_payment_locked,
-      this.merchant_order_id,
-      this.wallet_notification,
-      this.paid_amount_cents);
+      this.isPaymentLocked,
+      this.merchantOrderId,
+      this.walletNotification,
+      this.paidAmountCents);
+  factory PaymentOrderRegistrationResponse.fromJson(
+          Map<String, dynamic> json) =>
+      PaymentOrderRegistrationResponse(
+        json["id"]as int?,
+         json["created_at"]as String?,
+         json["delivery_needed"]as String?,
+        PaymentOrderMerchant.fromJson(json["merchant"] as Map<String, dynamic>),
+         json["collector"]as String?,
+         json["amount_cents"]as int?,
+    PaymentOrderShippingData.fromJson(json["shipping_data"as Map<String, dynamic>] )  ,
+         json["currency"]as String?,
+         json["is_payment_locked"]as String?,
+         json["merchant_order_id"]as String?,
+         json["wallet_notification"]as String?,
+         json["paid_amount_cents"]as int?,
+      );
 }
 
 class PaymentOrderMerchant {
   int? id;
-  String? created_at;
+  String? createdAt;
   List<String>? phones;
-  List<String>? company_emails;
+  List<String>? companyEmails;
 
-  String? company_name;
+  String? companyName;
   String? state;
   String? country;
   String? city;
-  String? postal_code;
+  String? postalCode;
   String? street;
   PaymentOrderMerchant(
       this.id,
-      this.created_at,
+      this.createdAt,
       this.phones,
-      this.company_emails,
-      this.company_name,
+      this.companyEmails,
+      this.companyName,
       this.state,
       this.country,
       this.city,
-      this.postal_code,
+      this.postalCode,
       this.street);
   factory PaymentOrderMerchant.fromJson(Map<String, dynamic> json) =>
       PaymentOrderMerchant(

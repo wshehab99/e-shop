@@ -6,7 +6,6 @@ import 'package:sneakers_shop/domain/use_cases/favorite_use_case.dart';
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
 
-import '../../../../../domain/model/home_model.dart';
 import '../../../../base_view_model/base_view_model.dart';
 
 class FavoritePageViewModel extends BaseViewModel
@@ -15,7 +14,6 @@ class FavoritePageViewModel extends BaseViewModel
   FavoritePageViewModel(this._useCase);
   final StreamController _favoriteStreamController =
       BehaviorSubject<FavoriteModel>();
-  List<ProductResponseModel> _list = [];
   @override
   init() {
     super.init();
@@ -47,7 +45,6 @@ class FavoritePageViewModel extends BaseViewModel
           type: StateRendererType.errorFullScreenState,
           message: failure.message));
     }, (favoriteModel) {
-      _list = favoriteModel.favorite;
       inputFavorite.add(favoriteModel);
       inputState.add(ContentState());
     });

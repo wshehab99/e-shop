@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../app/dependency_injection.dart';
@@ -14,7 +15,7 @@ import '../../../../resources/string_manager.dart';
 import '../view_model/home_view_model.dart';
 
 class HomePageView extends StatefulWidget {
-  const HomePageView({super.key});
+   HomePageView({super.key});
 
   @override
   State<HomePageView> createState() => _HomePageViewState();
@@ -23,30 +24,20 @@ class HomePageView extends StatefulWidget {
 class _HomePageViewState extends State<HomePageView> {
   final HomeViewMode1 _viewModel =
       DependencyInjection.instance<HomeViewMode1>();
+
   final List<String> _list = [
     StringManager.upcoming,
     StringManager.featured,
     StringManager.news,
   ];
-  @override
-  void initState() {
-    _viewModel.init();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.renderWidget(context, _getContent()) ??
-              _getContent();
+          return snapshot.data?.renderWidget(context, _getContent(context)) ??
+              _getContent(context);
         });
   }
 
@@ -118,7 +109,7 @@ class _HomePageViewState extends State<HomePageView> {
         });
   }
 
-  Widget _getContent() {
+  Widget _getContent(BuildContext context) {
     return SingleChildScrollView(
       physics: PrefManager.appScrollPhysics,
       child: Column(
@@ -135,7 +126,7 @@ class _HomePageViewState extends State<HomePageView> {
               Text(
                 StringManager.more,
                 style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              ).tr(),
               const Icon(
                 Icons.arrow_right,
                 size: SizeManager.s35,

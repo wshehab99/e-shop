@@ -1,9 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/app/dependency_injection.dart';
 import 'package:sneakers_shop/domain/model/settings_model.dart';
 import 'package:sneakers_shop/presentation/common/state_renderer/state_renderer.dart';
 import 'package:sneakers_shop/presentation/main/pages/profile_page/view_model/profile_view_model.dart';
 import 'package:sneakers_shop/presentation/resources/color_manger.dart';
+import 'package:sneakers_shop/presentation/resources/language_manager.dart';
 import 'package:sneakers_shop/presentation/resources/pref_manager.dart';
 import 'package:sneakers_shop/presentation/resources/size_manager.dart';
 import 'package:sneakers_shop/presentation/resources/string_manager.dart';
@@ -12,7 +14,7 @@ import 'package:sneakers_shop/presentation/resources/them_manager/view_model/the
 import '../../../../../domain/model/authentication_model.dart';
 
 class ProfilePageView extends StatefulWidget {
-  const ProfilePageView({super.key});
+  ProfilePageView({super.key});
 
   @override
   State<ProfilePageView> createState() => _ProfilePageViewState();
@@ -21,31 +23,21 @@ class ProfilePageView extends StatefulWidget {
 class _ProfilePageViewState extends State<ProfilePageView> {
   final ProfilePageViewModel _viewModel =
       DependencyInjection.instance<ProfilePageViewModel>();
+
   final ThemeMangerViewModel _themeViewModel =
       DependencyInjection.instance<ThemeMangerViewModel>();
-  @override
-  void initState() {
-    _viewModel.init();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
-          return snapshot.data?.renderWidget(context, _getContent()) ??
-              _getContent();
+          return snapshot.data?.renderWidget(context, _getContent(context)) ??
+              _getContent(context);
         });
   }
 
-  Widget _getContent() {
+  Widget _getContent(BuildContext context) {
     return SingleChildScrollView(
         physics: PrefManager.appScrollPhysics,
         child: StreamBuilder<SettingsModel>(
@@ -72,7 +64,7 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                           list: snapshot.data!.data.payment,
                           stream: _viewModel.outputPaymentShown,
                           newList: snapshot.data!.data.newPayment,
-                          trailingText: StringManager.new2,
+                          trailingText: StringManager.news,
                           onTap: _viewModel.showUnShowPayment,
                         ),
                         const SizedBox(
@@ -114,8 +106,8 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                             context: context,
                             leadingIcon: Icons.language,
                             title: StringManager.changeLanguage,
-                            list: [],
-                            newList: [],
+                            list: LanguageModel.appLangues,
+                            newList: LanguageModel.appLangues,
                             stream: _viewModel.outputLanguagesShown,
                             leadingColor: ColorManager.blue,
                             onTap: _viewModel.showUnShowLanguages),
@@ -182,7 +174,7 @@ class _ProfilePageViewState extends State<ProfilePageView> {
           .textTheme
           .headlineLarge!
           .copyWith(color: ColorManager.lightGrey),
-    );
+    ).tr();
   }
 
   Widget _buildProfileDetails(
@@ -205,11 +197,11 @@ class _ProfilePageViewState extends State<ProfilePageView> {
               Text(
                 contact.name,
                 style: Theme.of(context).textTheme.bodyMedium,
-              ),
+              ).tr(),
               Text(
                 contact.email,
                 style: Theme.of(context).textTheme.bodyLarge,
-              ),
+              ).tr(),
             ],
           ),
           const SizedBox(
@@ -254,7 +246,7 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                         ),
                       ),
                       title: Text(title,
-                          style: Theme.of(context).textTheme.bodyMedium),
+                          style: Theme.of(context).textTheme.bodyMedium).tr(),
                       trailing: snapshot.data!
                           ? null
                           : newList.isNotEmpty
@@ -277,7 +269,7 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                                               .displaySmall!
                                               .copyWith(
                                                   color: ColorManager.white),
-                                        ),
+                                        ).tr(),
                                         const SizedBox(
                                           width: SizeManager.s5,
                                         ),
@@ -307,7 +299,14 @@ class _ProfilePageViewState extends State<ProfilePageView> {
                                           .price
                                           .toString()),
                                     )
-                                  : Text(newList[index].action),
+                                  : newList[index].runtimeType == LanguageModel
+                                      ? InkWell(
+                                          onTap: () {
+                                            _themeViewModel.changeLanguage(
+                                                newList[index].value);
+                                          },
+                                          child: Text(newList[index].language))
+                                      : Text(newList[index].action),
                           physics: PrefManager.neverScrollPhysics,
                           shrinkWrap: true,
                           separatorBuilder: (context, index) =>

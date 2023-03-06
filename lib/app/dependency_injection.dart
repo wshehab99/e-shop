@@ -108,34 +108,34 @@ class DependencyInjection {
   static void initSearch() {}
   static void initNotifications() {}
   static void _initHome() {
-    instance.registerFactory<HomeUseCase>(
+    instance.registerLazySingleton<HomeUseCase>(
         () => HomeUseCase(instance<Repository>()));
 
-    instance.registerFactory<HomeViewMode1>(
+    instance.registerLazySingleton<HomeViewMode1>(
         () => HomeViewMode1(instance<HomeUseCase>()));
   }
 
   static void _initBag() {
-    instance.registerFactory<CartUseCase>(
+    instance.registerLazySingleton<CartUseCase>(
         () => CartUseCase(instance<Repository>()));
 
-    instance.registerFactory<CartPageViewModel>(
+    instance.registerLazySingleton<CartPageViewModel>(
         () => CartPageViewModel(instance<CartUseCase>()));
   }
 
   static void _initFavorite() {
-    instance.registerFactory<FavoriteUseCase>(
+    instance.registerLazySingleton<FavoriteUseCase>(
         () => FavoriteUseCase(instance<Repository>()));
 
-    instance.registerFactory<FavoritePageViewModel>(
+    instance.registerLazySingleton<FavoritePageViewModel>(
         () => FavoritePageViewModel(instance<FavoriteUseCase>()));
   }
 
   static void _initSettings() {
-    instance.registerFactory<SettingsUseCase>(
+    instance.registerLazySingleton<SettingsUseCase>(
         () => SettingsUseCase(instance<Repository>()));
 
-    instance.registerFactory<ProfilePageViewModel>(
+    instance.registerLazySingleton<ProfilePageViewModel>(
         () => ProfilePageViewModel(instance<SettingsUseCase>()));
   }
 }

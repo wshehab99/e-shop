@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import '../../resources/asset_manager.dart';
@@ -129,7 +130,7 @@ class StateRenderer extends StatelessWidget {
     return Text(
       message,
       style: Theme.of(context).textTheme.bodyMedium,
-    );
+    ).tr();
   }
 
   Widget _getRetryButton(context, String text) {
@@ -146,7 +147,7 @@ class StateRenderer extends StatelessWidget {
                       : () {
                           Navigator.pop(context);
                         },
-              child: Text(text))),
+              child: Text(text).tr())),
     );
   }
 }

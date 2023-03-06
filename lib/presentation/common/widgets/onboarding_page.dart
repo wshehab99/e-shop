@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/domain/model/onboarding_model.dart';
 
@@ -17,7 +18,7 @@ class OnboardingPage extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: 30,
               ),
-        ),
+        ).tr(),
         const SizedBox(
           height: 20,
         ),
@@ -32,7 +33,7 @@ class OnboardingPage extends StatelessWidget {
         Text(
           page.subTitle,
           style: Theme.of(context).textTheme.bodyLarge,
-        ),
+        ).tr(),
       ],
     );
   }

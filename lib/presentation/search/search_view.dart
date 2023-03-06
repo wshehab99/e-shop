@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/domain/model/home_model.dart';
 import 'package:sneakers_shop/presentation/resources/pref_manager.dart';
@@ -12,7 +13,7 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text(StringManager.search)),
+      appBar: AppBar(title: const Text(StringManager.search).tr()),
       body: SingleChildScrollView(
         physics: PrefManager.appScrollPhysics,
         child: Padding(

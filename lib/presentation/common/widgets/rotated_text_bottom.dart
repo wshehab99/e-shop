@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sneakers_shop/presentation/resources/color_manger.dart';
 
@@ -22,7 +23,7 @@ class RotatedTextBottom extends StatelessWidget {
         child: Text(text,
             style: TextStyle(
                 color:
-                    isSelected ? ColorManager.black : ColorManager.lightGrey)),
+                    isSelected ? ColorManager.black : ColorManager.lightGrey)).tr(),
       ),
     );
   }

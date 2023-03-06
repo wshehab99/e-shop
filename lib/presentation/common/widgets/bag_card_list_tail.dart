@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../resources/color_manger.dart';
@@ -63,11 +64,11 @@ class BagCardListTail extends StatelessWidget {
               Text(
                 itemName,
                 style: Theme.of(context).textTheme.labelLarge,
-              ),
+              ).tr(),
               Text(
                 itemPrice,
                 style: Theme.of(context).textTheme.displayLarge,
-              ),
+              ).tr(),
               Row(
                 children: [
                   NumberIconButton(
@@ -80,7 +81,7 @@ class BagCardListTail extends StatelessWidget {
                   Text(
                     numberOfItem.toString(),
                     style: Theme.of(context).textTheme.displayLarge,
-                  ),
+                  ).tr(),
                   const SizedBox(
                     width: SizeManager.s4,
                   ),

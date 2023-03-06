@@ -9,7 +9,7 @@ import '../../../../common/widgets/favorite_card.dart';
 import '../../../../resources/pref_manager.dart';
 
 class FavoritePageView extends StatefulWidget {
-  const FavoritePageView({super.key});
+   FavoritePageView({super.key});
 
   @override
   State<FavoritePageView> createState() => _FavoritePageViewState();
@@ -18,17 +18,6 @@ class FavoritePageView extends StatefulWidget {
 class _FavoritePageViewState extends State<FavoritePageView> {
   final FavoritePageViewModel _viewModel =
       DependencyInjection.instance<FavoritePageViewModel>();
-  @override
-  void initState() {
-    _viewModel.init();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {

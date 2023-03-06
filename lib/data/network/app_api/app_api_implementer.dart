@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:sneakers_shop/data/response/authentication_response.dart';
-import 'package:sneakers_shop/data/response/cart_response.dart';
-import 'package:sneakers_shop/data/response/favorite_response.dart';
-import 'package:sneakers_shop/data/response/home_response.dart';
-import 'package:sneakers_shop/data/response/payment_authentication.dart';
-import 'package:sneakers_shop/data/response/payment_order_registration.dart';
-import 'package:sneakers_shop/data/response/settings_response.dart';
-
 import '../../../app/app_constant.dart';
+import '../../response/authentication_response.dart';
+import '../../response/cart_response.dart';
+import '../../response/favorite_response.dart';
+import '../../response/home_response.dart';
+import '../../response/payment_authentication.dart';
+import '../../response/payment_key_response.dart';
+import '../../response/payment_order_registration.dart';
+import '../../response/settings_response.dart';
 import 'app_api.dart';
 
 class AppServiceClientImpl implements AppServiceClient {
@@ -69,18 +69,7 @@ class AppServiceClientImpl implements AppServiceClient {
     return HomeResponse.fromJson(result.data!);
   }
 
-  RequestOptions _setStreamType<T>(RequestOptions options) {
-    if (T != dynamic &&
-        !(options.responseType == ResponseType.bytes ||
-            options.responseType == ResponseType.stream)) {
-      if (T == String) {
-        options.responseType = ResponseType.plain;
-      } else {
-        options.responseType = ResponseType.json;
-      }
-    }
-    return options;
-  }
+
 
   @override
   Future<CartResponse> getCart() async {
@@ -128,7 +117,7 @@ class AppServiceClientImpl implements AppServiceClient {
     Map<String, dynamic> extra = {};
     Map<String, dynamic> queryParameters = {};
     Map<String, dynamic> data = {
-      "api_key": "api_key" //todo
+      "api_key": AppConstants.paymentApiKey //todo
     };
     final response = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PaymentAuthenticationResponse>(
@@ -140,13 +129,13 @@ class AppServiceClientImpl implements AppServiceClient {
   }
 
   @override
-  Future<PaymentOrderRegistrationResponse>
-      paymentOrderRegistrationResponse() async {
+  Future<PaymentOrderRegistrationResponse> paymentOrderRegistrationResponse(
+      String authToken) async {
     Map<String, dynamic> headers = {};
     Map<String, dynamic> extra = {};
     Map<String, dynamic> queryParameters = {};
     Map<String, dynamic> data = {
-      "api_key": "api_key" //todo
+      "auth_token": authToken //todo
     };
     final response = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PaymentOrderRegistrationResponse>(
@@ -157,5 +146,36 @@ class AppServiceClientImpl implements AppServiceClient {
                     data: data,
                     queryParameters: queryParameters)));
     return PaymentOrderRegistrationResponse.fromJson(response.data!);
+  }
+
+  @override
+  Future<PaymentKeyResponse> paymentKeyResponse(String authToken) async {
+    Map<String, dynamic> headers = {};
+    Map<String, dynamic> extra = {};
+    Map<String, dynamic> queryParameters = {};
+    Map<String, dynamic> data = {
+      "auth_token": authToken //todo
+    };
+    final response = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PaymentKeyResponse>(
+            Options(extra: extra, headers: headers, method: "POST")
+                .compose(_dio.options, "")
+                .copyWith(
+                    baseUrl: AppConstants.paymentKeyUrl,
+                    data: data,
+                    queryParameters: queryParameters)));
+    return PaymentKeyResponse.fromJson(response.data!);
+  }
+    RequestOptions _setStreamType<T>(RequestOptions options) {
+    if (T != dynamic &&
+        !(options.responseType == ResponseType.bytes ||
+            options.responseType == ResponseType.stream)) {
+      if (T == String) {
+        options.responseType = ResponseType.plain;
+      } else {
+        options.responseType = ResponseType.json;
+      }
+    }
+    return options;
   }
 }

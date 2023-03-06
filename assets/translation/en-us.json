@@ -1,0 +1,87 @@
+{
+   "discover": "Discover",
+   "upcoming": "Upcoming",
+   "featured": "Featured",
+   "new": "New",
+   "no_route_found": "No route found",
+   "my_bag": "My Bag",
+   "favorites": "Favorites",
+  
+   "my_profile": "My Profile",
+   "nike": "Nike",
+   "no_item_added": "No item added",
+   "air_max": "Air-Max",
+   "price": "130.00",
+   "more": "More",
+   "us": "US",
+   "uk": "UK",
+   "add_to_cart": "Add to cart",
+   "zoom": "ZOOM",
+   "lorem_is":
+   "Lorem ipsum pain be amen, consectetur advising elite. Prion turpin magna, pulvinate id torpor id, corvallis corvallis ex. No darius ligula eu was soft, faucet's molesting fear maximums. Vivants mattie et et aliquant sapiens vestibule. Integer eu eros not before varies Vehicles. But it's a good thing for the hospital. Iquique laoreet rutrum commodo. Vivamus fringilla for who is amet placerat. Whole orci except, elementum at eleifend eu, always and just. But hate not, for the time of life et sagittis condimentum nisl. Aliquam laoreet fermentum purus , not fringilla ligula rutrum vitae. Suspendisse convallis pellentesque hate, as the author accepts it. Aliquam eu lectus fear. Suspendisse potenti.",   
+   "size": "SIZE",
+   "next": "NEXT",
+   "total": "TOTAL",
+   "skip": "SKIP",
+   "register": "Register",
+   "loading": "Loading ...",
+  
+   "retry_again": "Retry again",
+   "cancel": "Cancel",
+   "not_member": "not a member?",
+   "already_member": "already a member?",
+  
+   "forget_password": "Forget Password?",
+  
+   "dashboard": "Dashboard",
+   "payment": "Payment",
+   "achievements": "Achievements",
+   "privacy": "Privacy",
+   "action_needed": "Action Needed",
+   "my_account": "My Account",
+   "switch_to_other_account": "Switch to Other Account",
+   "log_out": "Log Out",
+   "login": "Login",
+  
+   "settings": "Settings",
+   "change_language": "Change language",
+   "dark_mode": "Dark Mode",
+   "search": "Search",
+  
+   "success": "Success",
+  
+   "no_content": "No Content",
+   "bad_request": "Bad Request",
+   "forbidden": "Forbidden",
+   "unauthorized": "Unauthorized",
+   "not_found": "Not Found",
+   "internal_server_error": "Internal Server Error",
+   "connect_timeout": "Connect Timeout",
+   "cancelled": "Cancelled",
+   "receive_timeout": "Receive Timeout",
+   "send_timeout": "Send Timeout",
+   "cache_error": "Cache Error",
+   "no_internet_connection": "No Internet Connection",
+   "unknown": "Unknown",
+  
+   "username": "Username",
+   "name": "Full name",
+  
+   "password": "Password",
+   "username_error": "Username must be at least 6 characters",
+   "name_error": "Full name must be at least 6 characters",
+  
+   "password_error": "Password must be at least 8 characters",
+  
+   "onboarding_title1": "Online shopping",
+   "onboarding_title2": "Add to cart",
+  
+   "onboarding_title3": "Payment Successful",
+  
+   "onboarding_sub_title1":
+        "Women Fashion Shopping Online - Shop from a huge range of latest women clothing, shoes, makeup Kits, Watches, footwear and more for women at best price",
+   "onboarding_sub_title2":
+        "Add to cart button works on product pages. The customizations in this section compatible with dynamic checkout buttons",
+   "onboarding_sub_title3":
+        "Your payment has been successfully completed. You will receive a confirmation email within a few minutes."
+}

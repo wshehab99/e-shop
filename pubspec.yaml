@@ -45,6 +45,7 @@ dependencies:
   lottie: ^2.2.0
   dartz: ^0.10.1
   rxdart: ^0.27.7
+  easy_localization: ^3.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,6 +72,7 @@ flutter:
   assets:
     - assets/images/
     - assets/json/
+    - assets/translation/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
